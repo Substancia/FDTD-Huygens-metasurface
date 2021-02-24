@@ -17,13 +17,9 @@ def plotDetection(File, timestep):
 
     for detector in df:
         figure(figsize=(15, 15))
-        for dimension in range(
-                len(df[detector][0][1:-1].split("\n ")[0][1:-1].split())):
+        for dimension in range(len(df[detector][0][1:-1].split("\n ")[0][1:-1].split())):
             subplot(2, 2, dimension + 1)
-            plot([
-                float(x[1:-1].split()[dimension])
-                for x in df[detector][int(timestep)][1:-1].split("\n ")
-            ])
+            plot([float(x[1:-1].split()[dimension]) for x in df[detector][int(timestep)][1:-1].split("\n ")])
             title(detector[-2] + "(" + ["x", "y", "z"][dimension] + ")")
         suptitle(detector)
         show()

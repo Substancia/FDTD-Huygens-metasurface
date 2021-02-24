@@ -15,7 +15,6 @@ def plotDetection(File):
 		for dimension in range(len(df[detector][0][2:-2].split())):
 			subplot(2, 2, dimension + 1)
 			plot(abs(hilbert([float(x[2:-2].split()[dimension]) for x in df[detector]])), label=detector)
-			#plot([float(x[2:-2].split()[dimension]) for x in df[detector]])
 			title(detector[-2] + "(" + ["x", "y", "z"][dimension] + ")")
 		#suptitle(detector)
 		#show()

@@ -10,45 +10,41 @@ from sys import argv
 #from matplotlib.pyplot import figure
 
 if not path.exists("./fdtd_output"):  # Output folder declaration
-    mkdir("fdtd_output")
+	mkdir("fdtd_output")
 folder = "fdtd_output_" + str(datetime.now().year) + "-" + str(
-    datetime.now().month) + "-" + str(datetime.now().day) + "-" + str(
-        datetime.now().hour) + "-" + str(datetime.now().minute) + "-" + str(
-            datetime.now().second)
+	datetime.now().month) + "-" + str(datetime.now().day) + "-" + str(
+		datetime.now().hour) + "-" + str(datetime.now().minute) + "-" + str(datetime.now().second)
 if len(argv) > 1:  # Simulation name (optional)
-    folder = folder + " (" + argv[1] + ")"
+	folder = folder + " (" + argv[1] + ")"
 if path.exists(path.join("./fdtd_output", folder)):  # Overwrite protocol
-    yn = input("File", folder, "exists. Overwrite? [Y/N]: ")
-    if yn.capitalize() == "N":
-        exit()
+	yn = input("File", folder, "exists. Overwrite? [Y/N]: ")
+	if yn.capitalize() == "N":
+		exit()
 else:
-    mkdir(path.join("./fdtd_output", folder))
+	mkdir(path.join("./fdtd_output", folder))
 
 
 # Generate video
 def generate_video(delete_frames=False):
-    chdir(path.join("./fdtd_output", folder))
-    call([
-        'ffmpeg', '-y', '-framerate', '8', '-i', 'file%02d.png', '-r', '30',
-        '-pix_fmt', 'yuv420p', 'fdtd_sim_video.mp4'
-    ])
-    if delete_frames:  # delete frames
-        for file_name in glob("*.png"):
-            remove(file_name)
-    chdir("../..")
+	chdir(path.join("./fdtd_output", folder))
+	call([
+		'ffmpeg', '-y', '-framerate', '8', '-i', 'file%02d.png', '-r', '30',
+		'-pix_fmt', 'yuv420p', 'fdtd_sim_video.mp4'
+	])
+	if delete_frames:  # delete frames
+		for file_name in glob("*.png"):
+			remove(file_name)
+	chdir("../..")
 
 
 # Save detector readings
 def save_data(detectors):
-    dic = {}
-    for detector in detectors:
-        dic[detector.name +
-            " (E)"] = [x for x in detector.detector_values()["E"]]
-        dic[detector.name +
-            " (H)"] = [x for x in detector.detector_values()["H"]]
-    df = DataFrame(dic)
-    df.to_csv(path.join("./fdtd_output", folder, "detector_readings.csv"),
-              index=None)
+	dic = {}
+	for detector in detectors:
+		dic[detector.name + " (E)"] = [x for x in detector.detector_values()["E"]]
+		dic[detector.name + " (H)"] = [x for x in detector.detector_values()["H"]]
+	df = DataFrame(dic)
+	df.to_csv(path.join("./fdtd_output", folder, "detector_readings.csv"), index=None)
 
 
 grid = fdtd.Grid(shape=(15.5e-6, 15.5e-6, 1), )
@@ -71,13 +67,11 @@ grid = fdtd.Grid(shape=(15.5e-6, 15.5e-6, 1), )
 
 #grid[1.0e-6:np.tan(np.radians(30))*8.5e-6, 6.5e-6:14e-6, 0] = fdtd.LineSource(period = 1550e-9 / (3e8), name="source")
 #grid[20, 7.5e-6, 0] = fdtd.PointSource(period=1550e-9 / (3e8), name="source", pulse=True)
-grid[20, 7.5e-6, 0] = fdtd.PointSource(period=1550e-9 / (3e8),
-                                       name="source",
-                                       pulse=True,
-                                       cycle=3,
-                                       dt=4e-15)
+grid[20, 7.5e-6, 0] = fdtd.PointSource(period=1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
 
-grid[12e-6, :, 0] = fdtd.LineDetector(name="detector")
+#grid[12e-6, :, 0] = fdtd.LineDetector(name="detector")
+for i in range(9):
+	grid[12e-6, 30+5*i:31+5*i, 0] = fdtd.LineDetector(name="detector"+str(i))
 
 # x boundaries
 grid[0:10, :, :] = fdtd.PML(name="pml_xlow")
@@ -94,9 +88,9 @@ f.close()
 
 #figure(figsize=(15, 15))
 for i in range(120):
-    grid.run(total_time=1)
-    #grid.visualize(z=0, animate=True)
-    grid.visualize(z=0, animate=True, index=i, save=True, folder=folder)
+	grid.run(total_time=1)
+	#grid.visualize(z=0, animate=True)
+	grid.visualize(z=0, animate=True, index=i, save=True, folder=folder)
 generate_video(delete_frames=True)
 save_data(grid.detectors)
 

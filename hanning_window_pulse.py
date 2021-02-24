@@ -4,7 +4,7 @@ from scipy.signal import hilbert
 
 
 def Hanning(f, t, n):
-    return (1 / 2) * (1 - cos(f * t / n)) * (sin(f * t))
+	return (1 / 2) * (1 - cos(f * t / n)) * (sin(f * t))
 
 
 dt = 4e-15
@@ -13,7 +13,7 @@ timesteps = 360
 t1 = int(2 * pi / (f * dt / 5))
 src = zeros(timesteps)
 for i in range(0, t1):
-    src[i] = Hanning(f, i * dt, 5)
+	src[i] = Hanning(f, i * dt, 5)
 subplot(1, 2, 1)
 plot(src)
 plot(hilbert(src).imag)
