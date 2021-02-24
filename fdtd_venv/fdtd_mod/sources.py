@@ -18,13 +18,14 @@ from .typing import Tuple, Number, ListOrSlice, List
 from .grid import Grid
 from .backend import backend as bd
 
+
 def Hanning(f, t, n):
-    return (1/2)*(1 - cos(f*t/n))*(sin(f*t))
+    return (1 / 2) * (1 - cos(f * t / n)) * (sin(f * t))
+
 
 ## PointSource class
 class PointSource:
     """ A source placed at a single point (grid cell) in the grid """
-
     def __init__(
         self,
         period: Number = 15,
@@ -76,43 +77,43 @@ class PointSource:
                 setattr(grid, self.name, self)
             else:
                 raise ValueError(
-                    f"The grid already has an attribute with name {self.name}"
-                )
+                    f"The grid already has an attribute with name {self.name}")
 
         try:
-            (x,), (y,), (z,) = x, y, z
+            (x, ), (y, ), (z, ) = x, y, z
         except (TypeError, ValueError):
-            raise ValueError("a point source should be placed on a single grid cell.")
+            raise ValueError(
+                "a point source should be placed on a single grid cell.")
         self.x, self.y, self.z = grid._handle_tuple((x, y, z))
         self.period = grid._handle_time(self.period)
         self.amplitude = (
-            self.power * self.grid.inverse_permittivity[self.x, self.y, self.z, 2]
-        ) ** 0.5
+            self.power *
+            self.grid.inverse_permittivity[self.x, self.y, self.z, 2])**0.5
         #print(self.frequency*self.grid.time_step)
 
     def update_E(self):
         """ Add the source to the electric field """
         q = self.grid.time_steps_passed
         if self.pulse:
-            t1 = int(2*pi/(self.frequency*self.dt/self.cycle))
+            t1 = int(2 * pi / (self.frequency * self.dt / self.cycle))
             if q < t1:
-                src = self.amplitude * Hanning(self.frequency, q*self.dt, self.cycle)
+                src = self.amplitude * Hanning(self.frequency, q * self.dt,
+                                               self.cycle)
             else:
                 #src = - self.grid.E[self.x, self.y, self.z, 2]
                 src = 0
         else:
-            src = self.amplitude * sin(2 * pi * q / self.period + self.phase_shift)
+            src = self.amplitude * sin(2 * pi * q / self.period +
+                                       self.phase_shift)
         self.grid.E[self.x, self.y, self.z, 2] = src
 
     def update_H(self):
         """ Add the source to the magnetic field """
 
     def __repr__(self):
-        return (
-            f"{self.__class__.__name__}(period={self.period}, "
-            f"power={self.power}, phase_shift={self.phase_shift}, "
-            f"name={repr(self.name)})"
-        )
+        return (f"{self.__class__.__name__}(period={self.period}, "
+                f"power={self.power}, phase_shift={self.phase_shift}, "
+                f"name={repr(self.name)})")
 
     def __str__(self):
         s = "    " + repr(self) + "\n"
@@ -126,7 +127,6 @@ class PointSource:
 ## LineSource class
 class LineSource:
     """ A source along a line in the FDTD grid """
-
     def __init__(
         self,
         period: Number = 15,
@@ -149,9 +149,8 @@ class LineSource:
         self.phase_shift = phase_shift
         self.name = name
 
-    def _register_grid(
-        self, grid: Grid, x: ListOrSlice, y: ListOrSlice, z: ListOrSlice
-    ):
+    def _register_grid(self, grid: Grid, x: ListOrSlice, y: ListOrSlice,
+                       z: ListOrSlice):
         """ Register a grid for the source.
 
         Args:
@@ -172,31 +171,29 @@ class LineSource:
                 setattr(grid, self.name, self)
             else:
                 raise ValueError(
-                    f"The grid already has an attribute with name {self.name}"
-                )
+                    f"The grid already has an attribute with name {self.name}")
 
         self.x, self.y, self.z = self._handle_slices(x, y, z)
 
         self.period = grid._handle_time(self.period)
         self.amplitude = (
-            self.power * self.grid.inverse_permittivity[self.x, self.y, self.z, 2]
-        ) ** 0.5
+            self.power *
+            self.grid.inverse_permittivity[self.x, self.y, self.z, 2])**0.5
 
         L = len(self.x)
         vect = bd.array(
-            (bd.array(self.x) - self.x[L // 2]) ** 2
-            + (bd.array(self.y) - self.y[L // 2]) ** 2
-            + (bd.array(self.z) - self.z[L // 2]) ** 2,
+            (bd.array(self.x) - self.x[L // 2])**2 +
+            (bd.array(self.y) - self.y[L // 2])**2 +
+            (bd.array(self.z) - self.z[L // 2])**2,
             bd.float,
         )
 
-        self.profile = bd.exp(-(vect ** 2) / (2 * (0.5 * vect.max()) ** 2))
+        self.profile = bd.exp(-(vect**2) / (2 * (0.5 * vect.max())**2))
         self.profile /= self.profile.sum()
         self.profile *= self.amplitude
 
-    def _handle_slices(
-        self, x: ListOrSlice, y: ListOrSlice, z: ListOrSlice
-    ) -> Tuple[List, List, List]:
+    def _handle_slices(self, x: ListOrSlice, y: ListOrSlice,
+                       z: ListOrSlice) -> Tuple[List, List, List]:
         """ Convert slices in the grid to lists
 
         This is necessary to make the source span the diagonal of the volume
@@ -241,10 +238,20 @@ class LineSource:
         # we can now convert these coordinates into index lists
         m = max(abs(x1 - x0), abs(y1 - y0), abs(z1 - z0))
         if m < 2:
-            raise ValueError("a LineSource should consist of at least two gridpoints")
-        x = [v.item() for v in bd.array(bd.linspace(x0, x1, m, endpoint=False), bd.int)]
-        y = [v.item() for v in bd.array(bd.linspace(y0, y1, m, endpoint=False), bd.int)]
-        z = [v.item() for v in bd.array(bd.linspace(z0, z1, m, endpoint=False), bd.int)]
+            raise ValueError(
+                "a LineSource should consist of at least two gridpoints")
+        x = [
+            v.item()
+            for v in bd.array(bd.linspace(x0, x1, m, endpoint=False), bd.int)
+        ]
+        y = [
+            v.item()
+            for v in bd.array(bd.linspace(y0, y1, m, endpoint=False), bd.int)
+        ]
+        z = [
+            v.item()
+            for v in bd.array(bd.linspace(z0, z1, m, endpoint=False), bd.int)
+        ]
 
         return x, y, z
 
@@ -261,11 +268,9 @@ class LineSource:
         """ Add the source to the magnetic field """
 
     def __repr__(self):
-        return (
-            f"{self.__class__.__name__}(period={self.period}, "
-            f"power={self.power}, phase_shift={self.phase_shift}, "
-            f"name={repr(self.name)})"
-        )
+        return (f"{self.__class__.__name__}(period={self.period}, "
+                f"power={self.power}, phase_shift={self.phase_shift}, "
+                f"name={repr(self.name)})")
 
     def __str__(self):
         s = "    " + repr(self) + "\n"

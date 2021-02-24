@@ -30,9 +30,9 @@ def visualize(
     detcolor="C2",
     show=False,
     animate=False,
-    index = None,
-    save = False,
-    folder = None,
+    index=None,
+    save=False,
+    folder=None,
 ):
     """ visualize a projection of the grid and the optical energy inside the grid
 
