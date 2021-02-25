@@ -1,0 +1,35 @@
+Grid(shape=(100,100,1), grid_spacing=1.55e-07, courant_number=0.70)
+
+sources:
+    PointSource(period=14, power=1.0, phase_shift=0.0, name='source')
+        @ x=20, y=48, z=0
+
+detectors:
+    LineDetector(name='detector0')
+        @ x=[77, ... , 77], y=[30, ... , 31], z=[0, ... , 0]
+    LineDetector(name='detector1')
+        @ x=[77, ... , 77], y=[35, ... , 36], z=[0, ... , 0]
+    LineDetector(name='detector2')
+        @ x=[77, ... , 77], y=[40, ... , 41], z=[0, ... , 0]
+    LineDetector(name='detector3')
+        @ x=[77, ... , 77], y=[45, ... , 46], z=[0, ... , 0]
+    LineDetector(name='detector4')
+        @ x=[77, ... , 77], y=[50, ... , 51], z=[0, ... , 0]
+    LineDetector(name='detector5')
+        @ x=[77, ... , 77], y=[55, ... , 56], z=[0, ... , 0]
+    LineDetector(name='detector6')
+        @ x=[77, ... , 77], y=[60, ... , 61], z=[0, ... , 0]
+    LineDetector(name='detector7')
+        @ x=[77, ... , 77], y=[65, ... , 66], z=[0, ... , 0]
+    LineDetector(name='detector8')
+        @ x=[77, ... , 77], y=[70, ... , 71], z=[0, ... , 0]
+
+boundaries:
+    PML(name='pml_xlow')
+        @ x=0:10, y=:, z=:
+    PML(name='pml_xhigh')
+        @ x=-10:, y=:, z=:
+    PML(name='pml_ylow')
+        @ x=:, y=0:10, z=:
+    PML(name='pml_yhigh')
+        @ x=:, y=-10:, z=:

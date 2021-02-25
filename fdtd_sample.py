@@ -71,7 +71,7 @@ grid[20, 7.5e-6, 0] = fdtd.PointSource(period=1550e-9 / (3e8), name="source", pu
 
 #grid[12e-6, :, 0] = fdtd.LineDetector(name="detector")
 for i in range(9):
-	grid[12e-6, 30+5*i:31+5*i, 0] = fdtd.LineDetector(name="detector"+str(i))
+	grid[12e-6, 30+5*i:32+5*i, 0] = fdtd.LineDetector(name="detector"+str(i))
 
 # x boundaries
 grid[0:10, :, :] = fdtd.PML(name="pml_xlow")
