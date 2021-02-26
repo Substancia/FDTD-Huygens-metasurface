@@ -8,6 +8,9 @@ from datetime import datetime
 from pandas import DataFrame
 from sys import argv
 #from matplotlib.pyplot import figure
+from time import time
+
+start_time = time()
 
 if not path.exists("./fdtd_output"):  # Output folder declaration
 	mkdir("fdtd_output")
@@ -100,3 +103,6 @@ save_data(grid.detectors)
 #grid.run(total_time=100)
 #grid.visualize(z=0, show=True)
 #print(grid.detectors[0].name, grid.detectors[0].detector_values()["E"][-1])
+
+end_time = time()
+print("Runtime:", end_time-start_time)
