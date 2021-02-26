@@ -11,11 +11,12 @@ from sys import argv
 
 if not path.exists("./fdtd_output"):  # Output folder declaration
 	mkdir("fdtd_output")
-folder = "fdtd_output_" + str(datetime.now().year) + "-" + str(
+simTitle = str(datetime.now().year) + "-" + str(
 	datetime.now().month) + "-" + str(datetime.now().day) + "-" + str(
 		datetime.now().hour) + "-" + str(datetime.now().minute) + "-" + str(datetime.now().second)
 if len(argv) > 1:  # Simulation name (optional)
-	folder = folder + " (" + argv[1] + ")"
+	simTitle = simTitle + " (" + argv[1] + ")"
+folder = "fdtd_output_" + simTitle
 if path.exists(path.join("./fdtd_output", folder)):  # Overwrite protocol
 	yn = input("File", folder, "exists. Overwrite? [Y/N]: ")
 	if yn.capitalize() == "N":
@@ -29,7 +30,7 @@ def generate_video(delete_frames=False):
 	chdir(path.join("./fdtd_output", folder))
 	call([
 		'ffmpeg', '-y', '-framerate', '8', '-i', 'file%02d.png', '-r', '30',
-		'-pix_fmt', 'yuv420p', 'fdtd_sim_video.mp4'
+		'-pix_fmt', 'yuv420p', 'fdtd_sim_video_' + simTitle + '.mp4'
 	])
 	if delete_frames:  # delete frames
 		for file_name in glob("*.png"):
@@ -92,6 +93,8 @@ for i in range(120):
 	#grid.visualize(z=0, animate=True)
 	grid.visualize(z=0, animate=True, index=i, save=True, folder=folder)
 generate_video(delete_frames=True)
+#grid.run(total_time=120)
+#grid.visualize(z=0, index=i, save=True, folder=folder)
 save_data(grid.detectors)
 
 #grid.run(total_time=100)

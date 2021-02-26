@@ -1,4 +1,4 @@
-from matplotlib.pyplot import subplot, plot, show, title, suptitle, figure, legend
+from matplotlib.pyplot import subplot, plot, show, title, suptitle, figure, legend, xlabel, ylabel
 from scipy.signal import hilbert
 from pandas import read_csv
 from sys import argv
@@ -27,6 +27,12 @@ def plotDetection(File, detectorElement):
 			title(detector[-2] + "(" + ["x", "y", "z"][dimension] + ")")
 		#suptitle(detector)
 		#show()
+	for i in range(2):
+		figure(i)
+		for dimension in range(len(df[detector][0][1:-1].split("\n")[0][1:-1].split())):
+			subplot(2, 2, dimension + 1)
+			xlabel("Time steps")
+			ylabel("Magnitude")
 	legend()
 	show()
 
