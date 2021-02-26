@@ -44,6 +44,9 @@ class PointSource:
             power: The power of the source
             phase_shift: The phase offset of the source.
             name: name of the source.
+            pulse: Set True to use a Hanning window pulse instead of continuous wavefunction.
+            cycle: cycles for Hanning window pulse.
+            dt: timestep used for Hanning window pulse.
 
         """
         self.grid = None
@@ -89,7 +92,6 @@ class PointSource:
         self.amplitude = (
             self.power *
             self.grid.inverse_permittivity[self.x, self.y, self.z, 2])**0.5
-        #print(self.frequency*self.grid.time_step)
 
     def update_E(self):
         """ Add the source to the electric field """
@@ -97,14 +99,12 @@ class PointSource:
         if self.pulse:
             t1 = int(2 * pi / (self.frequency * self.dt / self.cycle))
             if q < t1:
-                src = self.amplitude * Hanning(self.frequency, q * self.dt,
-                                               self.cycle)
+                src = self.amplitude * Hanning(self.frequency, q * self.dt, self.cycle)
             else:
                 #src = - self.grid.E[self.x, self.y, self.z, 2]
                 src = 0
         else:
-            src = self.amplitude * sin(2 * pi * q / self.period +
-                                       self.phase_shift)
+            src = self.amplitude * sin(2 * pi * q / self.period + self.phase_shift)
         self.grid.E[self.x, self.y, self.z, 2] = src
 
     def update_H(self):
@@ -133,6 +133,9 @@ class LineSource:
         power: float = 1.0,
         phase_shift: float = 0.0,
         name: str = None,
+        pulse: bool = False,
+        cycle: int = 5,
+        dt: float = 10.0,
     ):
         """ Create a LineSource with a gaussian profile
 
@@ -141,6 +144,9 @@ class LineSource:
                 as integer [timesteps] or as float [seconds]
             power: The power of the source
             phase_shift: The phase offset of the source.
+            pulse: Set True to use a Hanning window pulse instead of continuous wavefunction.
+            cycle: cycles for Hanning window pulse.
+            dt: timestep used for Hanning window pulse.
 
         """
         self.grid = None
@@ -148,6 +154,10 @@ class LineSource:
         self.power = power
         self.phase_shift = phase_shift
         self.name = name
+        self.pulse = pulse
+        self.cycle = cycle
+        self.dt = dt
+        self.frequency = 1.0 / period
 
     def _register_grid(self, grid: Grid, x: ListOrSlice, y: ListOrSlice,
                        z: ListOrSlice):
@@ -258,11 +268,19 @@ class LineSource:
     def update_E(self):
         """ Add the source to the electric field """
         q = self.grid.time_steps_passed
-        vect = self.profile * sin(2 * pi * q / self.period + self.phase_shift)
+        if self.pulse:
+            t1 = int(2 * pi / (self.frequency * self.dt / self.cycle))
+            if q < t1:
+                vect = self.profile * Hanning(self.frequency, q * self.dt, self.cycle)
+            else:
+                #src = - self.grid.E[self.x, self.y, self.z, 2]
+                vect = self.profile * 0
+        else:
+            vect = self.profile * sin(2 * pi * q / self.period + self.phase_shift)
         # do not use list indexing here, as this is much slower especially for torch backend
         # DISABLED: self.grid.E[self.x, self.y, self.z, 2] = vect
         for x, y, z, value in zip(self.x, self.y, self.z, vect):
-            self.grid.E[x, y, z, 2] += value
+            self.grid.E[x, y, z, 2] = value
 
     def update_H(self):
         """ Add the source to the magnetic field """
