@@ -253,8 +253,9 @@ def visualize(
     plt.xlim(-1, Ny)
     plt.figlegend()
     plt.tight_layout()
-    if show:
-        plt.show()
 
     if save:
         plt.savefig("./fdtd_output/" + folder + "/file%02d.png" % index)
+
+    if show:
+        plt.show()
