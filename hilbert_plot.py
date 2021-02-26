@@ -1,3 +1,4 @@
+from numpy import array, where
 from matplotlib.pyplot import subplot, plot, show, title, suptitle, figure, legend, xlabel, ylabel
 from scipy.signal import hilbert
 from pandas import read_csv
@@ -14,6 +15,7 @@ filename (string)
 def plotDetection(File, detectorElement, specificPlot):
 	df = read_csv(File)
 	#dic = df.to_string()
+	maxArray = {}
 
 	for detector in df:
 		if specificPlot is not None:
@@ -30,8 +32,14 @@ def plotDetection(File, detectorElement, specificPlot):
 			# if specificPlot, plot on 1x1, else plot on 2x2
 			subplot(2 - int(specificPlot is not None), 2 - int(specificPlot is not None), dimension + 1 if specificPlot is None else 1)
 			#plot(abs(hilbert([float(x[2:-2].split()[dimension]) for x in df[detector]])), label=detector)
-			plot(abs(hilbert([float(x[1:-1].split("\n ")[0][1:-1].split()[dimension]) for x in df[detector]])), label=detector)
+			hilbertPlot = abs(hilbert([float(x[1:-1].split("\n ")[0][1:-1].split()[dimension]) for x in df[detector]]))
+			plot(hilbertPlot, label=detector)
 			title(detector[-2] + "(" + ["x", "y", "z"][dimension] + ")")
+			if detector[-2] not in maxArray:
+				maxArray[detector[-2]] = {}
+			if str(dimension) not in maxArray[detector[-2]]:
+				maxArray[detector[-2]][str(dimension)] = []
+			maxArray[detector[-2]][str(dimension)].append([detector, where(hilbertPlot == max(hilbertPlot))[0][0]])
 		#suptitle(detector)
 		#show()
 
@@ -50,6 +58,16 @@ def plotDetection(File, detectorElement, specificPlot):
 			ylabel("Magnitude")
 	legend()
 	show()
+	
+	for item in maxArray:
+		figure(figsize=(15, 15))
+		for dimension in maxArray[item]:
+			arrival = array(maxArray[item][dimension])
+			plot(arrival.T[1], arrival.T[0], label=["x", "y", "z"][int(dimension)])
+		title(item)
+		xlabel("Time of arrival (time steps)")
+		legend()
+		show()
 
 
 if __name__ == "__main__":
