@@ -1,25 +1,24 @@
 from fdtd_venv import fdtd_mod as fdtd
-import numpy as np
-import os
-import subprocess
-import glob
-import datetime
-import matplotlib.pyplot as plt
+from os import path, mkdir, chdir, remove
+from subprocess import call
+from glob import glob
+from datetime import datetime
+from matplotlib.pyplot import plot, scatter, show
 
 
-if not os.path.exists("./fdtd_output"):
-	os.makedir("fdtd_output")
-folder = "fdtd_output_" + str(datetime.datetime.now().year) + "-" + str(datetime.datetime.now().month) + "-" + str(datetime.datetime.now().day) + "-" + str(datetime.datetime.now().hour) + "-" + str(datetime.datetime.now().minute) + "-" + str(datetime.datetime.now().second)
-os.mkdir(os.path.join("./fdtd_output", folder))
+if not path.exists("./fdtd_output"):
+	mkdir("fdtd_output")
+folder = "fdtd_output_" + str(datetime.now().year) + "-" + str(datetime.now().month) + "-" + str(datetime.now().day) + "-" + str(datetime.now().hour) + "-" + str(datetime.now().minute) + "-" + str(datetime.now().second)
+mkdir(path.join("./fdtd_output", folder))
 
 def generate_video():
-	os.chdir(os.path.join("./fdtd_output", folder))
-	subprocess.call([
+	chdir(path.join("./fdtd_output", folder))
+	call([
 		'ffmpeg', '-framerate', '8', '-i', 'file%02d.png', '-r', '30', '-pix_fmt', 'yuv420p',
 		'fdtd_sim_video.mp4'
 	])
-	for file_name in glob.glob("*.png"):
-		os.remove(file_name)
+	for file_name in glob("*.png"):
+		remove(file_name)
 
 
 grid = fdtd.Grid(shape=(7.75e-6, 15.5e-6, 1), grid_spacing=38.75e-9)
@@ -62,6 +61,6 @@ arr = [x[0][2] for x in detector_array]
 	#for j in i:
 		#arr.append(j[2])
 print(arr)
-plt.plot([x for x in range(len(arr))], arr)
-plt.scatter([x for x in range(len(arr))], arr)
-plt.show()
+plot([x for x in range(len(arr))], arr)
+scatter([x for x in range(len(arr))], arr)
+show()
