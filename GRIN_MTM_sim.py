@@ -69,7 +69,7 @@ grid = fdtd.Grid(shape=(15.5e-6, 15.5e-6, 1), )
 #grid[6e-6:8e-6, 13e-6:14e-6, 0] = fdtd.Object(permittivity=1, name="object14")
 #grid[7e-6:8e-6, 14e-6:15e-6, 0] = fdtd.Object(permittivity=1, name="object15")
 for i in range(25):
-	grid[7e-6:8e-6, (1.5 + i*0.5)*1e-6:(2 + i*0.5)*1e-6, 0] = fdtd.Object(permittivity=1+i*0.1, name="object"+str(i))
+	grid[7e-6:8e-6, (1.5 + i*0.5)*1e-6:(2 + i*0.5)*1e-6, 0] = fdtd.Object(permittivity=1+i*0.04, name="object"+str(i))
 
 #grid[1.0e-6:np.tan(np.radians(30))*8.5e-6, 6.5e-6:14e-6, 0] = fdtd.LineSource(period = 1550e-9 / (3e8), name="source")
 #grid[20, 7.5e-6, 0] = fdtd.PointSource(period=1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
@@ -93,14 +93,14 @@ f.write(str(grid))
 f.close()
 
 figure(figsize=(15, 15))
-for i in range(120):
-	grid.run(total_time=1)
+#for i in range(120):
+	#grid.run(total_time=1)
 	#grid.visualize(z=0, animate=True)
-	grid.visualize(z=0, animate=True, index=i, save=True, folder=folder)
-generate_video(delete_frames=True)
+	#grid.visualize(z=0, animate=True, index=i, save=True, folder=folder)
+#generate_video(delete_frames=True)
 
-#grid.run(total_time=120)
-#grid.visualize(z=0, show=True, index=i, save=True, folder=folder)
+grid.run(total_time=120)
+grid.visualize(z=0, show=True, index=i, save=True, folder=folder)
 save_data(grid.detectors)
 
 end_time = time()
