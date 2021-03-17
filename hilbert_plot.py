@@ -1,4 +1,4 @@
-from numpy import array, where
+from numpy import array, where, arctan, degrees
 from matplotlib.pyplot import subplot, plot, show, title, suptitle, figure, legend, xlabel, ylabel
 from scipy.signal import hilbert
 from pandas import read_csv
@@ -12,7 +12,7 @@ Arguments:-
 filename (string)
 """
  
-def plotDetection(File, detectorElement, specificPlot):
+def plotDetection(File, detectorElement, specificPlot, angleParams):
 	df = read_csv(File)
 	#dic = df.to_string()
 	maxArray = {}
@@ -63,11 +63,21 @@ def plotDetection(File, detectorElement, specificPlot):
 		figure(figsize=(15, 15))
 		for dimension in maxArray[item]:
 			arrival = array(maxArray[item][dimension])
-			plot(arrival.T[1], arrival.T[0], label=["x", "y", "z"][int(dimension)])
+			plot([int(x) for x in arrival.T[1]], arrival.T[0], label=["x", "y", "z"][int(dimension)])
 		title(item)
 		xlabel("Time of arrival (time steps)")
 		legend()
 		show()
+
+# Printing angle (under construction)
+	if specificPlot is None:
+		specificPlot = "E2"
+	else:
+		specificPlot = specificPlot[0] + str(["x", "y", "z"].index(specificPlot[1]))
+	print(maxArray[specificPlot[0]][specificPlot[1]])
+	angle = degrees(arctan((maxArray[specificPlot[0]][specificPlot[1]][angleParams[1]][1] - maxArray[specificPlot[0]][specificPlot[1]][angleParams[0]][1]) / (((angleParams[1] + len(maxArray[specificPlot[0]][specificPlot[1]])) % len(maxArray[specificPlot[0]][specificPlot[1]]) - angleParams[0]) * angleParams[2])))
+	print("Angle (based on " + specificPlot[0]+["x", "y", "z"][int(specificPlot[1])] + "):", angle)
+	return angle
 
 
 if __name__ == "__main__":
@@ -75,4 +85,8 @@ if __name__ == "__main__":
 		argv.append("0")
 	if len(argv) < 4:
 		argv.append(None)
-	plotDetection(argv[1], argv[2], argv[3])
+	if len(argv) > 4:
+		argv[4] = [int(x) for x in argv[4][1:-1].split(",")]
+	if len(argv) < 5:
+		argv.append([0, 2, 2])
+	plotDetection(argv[1], argv[2], argv[3], argv[4])

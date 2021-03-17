@@ -1,6 +1,6 @@
 # import only necessary functions from modules to reduce load
 from fdtd_venv import fdtd_mod as fdtd
-#import numpy as np
+from numpy import sin, radians, tan
 from os import path, mkdir, chdir, remove
 from subprocess import call
 from glob import glob
@@ -51,33 +51,25 @@ def save_data(detectors):
 	df.to_csv(path.join("./fdtd_output", folder, "detector_readings.csv"), index=None)
 
 
-grid = fdtd.Grid(shape=(15.5e-6, 15.5e-6, 1), )
+grid = fdtd.Grid(shape=(9.3e-6, 15.5e-6, 1), grid_spacing=77.5e-9)
 
-#grid[7e-6:8e-6, 0:1e-6, 0] = fdtd.Object(permittivity=100, name="object1")
-#grid[6e-6:8e-6, 1e-6:2e-6, 0] = fdtd.Object(permittivity=100, name="object2")
-#grid[7e-6:8e-6, 2e-6:3e-6, 0] = fdtd.Object(permittivity=100, name="object3")
-#grid[6e-6:8e-6, 3e-6:4e-6, 0] = fdtd.Object(permittivity=100, name="object4")
-#grid[7e-6:8e-6, 4e-6:5e-6, 0] = fdtd.Object(permittivity=100, name="object5")
-#grid[6e-6:8e-6, 5e-6:6e-6, 0] = fdtd.Object(permittivity=100, name="object6")
-#grid[7e-6:8e-6, 6e-6:7e-6, 0] = fdtd.Object(permittivity=100, name="object7")
-#grid[6e-6:8e-6, 7e-6:8e-6, 0] = fdtd.Object(permittivity=100, name="object8")
-#grid[7e-6:8e-6, 8e-6:9e-6, 0] = fdtd.Object(permittivity=1, name="object9")
-#grid[6e-6:8e-6, 9e-6:10e-6, 0] = fdtd.Object(permittivity=1, name="object10")
-#grid[7e-6:8e-6, 10e-6:11e-6, 0] = fdtd.Object(permittivity=1, name="object11")
-#grid[6e-6:8e-6, 11e-6:12e-6, 0] = fdtd.Object(permittivity=1, name="object12")
-#grid[7e-6:8e-6, 12e-6:13e-6, 0] = fdtd.Object(permittivity=1, name="object13")
-#grid[6e-6:8e-6, 13e-6:14e-6, 0] = fdtd.Object(permittivity=1, name="object14")
-#grid[7e-6:8e-6, 14e-6:15e-6, 0] = fdtd.Object(permittivity=1, name="object15")
-for i in range(25):
-	grid[7e-6:8e-6, (1.5 + i*0.5)*1e-6:(2 + i*0.5)*1e-6, 0] = fdtd.Object(permittivity=1+i*0.04, name="object"+str(i))
+#grid[5.1e-6:5.6e-6, 5e-6:9e-6, 0] = fdtd.Object(permittivity=1.4, name="object")	# dielectric
+n0, x0, a, theta, t = 2, 0, 2, -30, 0.5											# GRIN-MTM
+for i in range(100):
+	x = i*0.04
+	epsilon = n0 - (((x - x0)**2 + a**2)**0.5 - a + (x - x0)*sin(radians(theta))) / (t)
+	#epsilon = 1+i*0.1
+	#print(epsilon)
+	grid[5.1e-6:5.6e-6, (5 + i*0.04)*1e-6:(5.04 + i*0.04)*1e-6, 0] = fdtd.Object(permittivity=epsilon, name="object"+str(i))
 
-#grid[1.0e-6:np.tan(np.radians(30))*8.5e-6, 6.5e-6:14e-6, 0] = fdtd.LineSource(period = 1550e-9 / (3e8), name="source")
 #grid[20, 7.5e-6, 0] = fdtd.PointSource(period=1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
-grid[20, 1.5e-6:14e-6, 0] = fdtd.LineSource(period = 1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
+grid[3.1e-6, 1.5e-6:14e-6, 0] = fdtd.LineSource(period = 1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
+#angleI = 30
+#grid[50:20, 50:50+round(30/tan(radians(angleI))), 0] = fdtd.LineSource(period = 1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
 
 #grid[12e-6, :, 0] = fdtd.LineDetector(name="detector")
-for i in range(17):
-	grid[10e-6, 10+5*i:12+5*i, 0] = fdtd.LineDetector(name="detector"+str(i))
+for i in range(8):
+	grid[5.8e-6, 84+4*i:88+4*i, 0] = fdtd.LineDetector(name="detector"+str(i))
 
 # x boundaries
 grid[0:10, :, :] = fdtd.PML(name="pml_xlow")
@@ -87,20 +79,20 @@ grid[-10:, :, :] = fdtd.PML(name="pml_xhigh")
 grid[:, 0:10, :] = fdtd.PML(name="pml_ylow")
 grid[:, -10:, :] = fdtd.PML(name="pml_yhigh")
 
-#print(grid)
+# Saving grid geometry
 f = open(path.join("./fdtd_output", folder, "grid.txt"), "w")
 f.write(str(grid))
 f.close()
 
-figure(figsize=(15, 15))
-#for i in range(120):
-	#grid.run(total_time=1)
+#figure(figsize=(15, 15))
+for i in range(120):
+	grid.run(total_time=1)
 	#grid.visualize(z=0, animate=True)
-	#grid.visualize(z=0, animate=True, index=i, save=True, folder=folder)
-#generate_video(delete_frames=True)
+	grid.visualize(z=0, animate=True, index=i, save=True, folder=folder)
+generate_video(delete_frames=True)
 
-grid.run(total_time=120)
-grid.visualize(z=0, show=True, index=i, save=True, folder=folder)
+#grid.run(total_time=120)
+#grid.visualize(z=0, show=True, index=i, save=True, folder=folder)
 save_data(grid.detectors)
 
 end_time = time()
