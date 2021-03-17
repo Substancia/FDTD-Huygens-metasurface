@@ -105,7 +105,7 @@ class PointSource:
                 src = 0
         else:
             src = self.amplitude * sin(2 * pi * q / self.period + self.phase_shift)
-        self.grid.E[self.x, self.y, self.z, 2] = src
+        self.grid.E[self.x, self.y, self.z, 2] += src
 
     def update_H(self):
         """ Add the source to the magnetic field """
@@ -280,7 +280,7 @@ class LineSource:
         # do not use list indexing here, as this is much slower especially for torch backend
         # DISABLED: self.grid.E[self.x, self.y, self.z, 2] = vect
         for x, y, z, value in zip(self.x, self.y, self.z, vect):
-            self.grid.E[x, y, z, 2] = value
+            self.grid.E[x, y, z, 2] += value
 
     def update_H(self):
         """ Add the source to the magnetic field """
