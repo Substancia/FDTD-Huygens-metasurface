@@ -53,18 +53,19 @@ def save_data(detectors):
 
 grid = fdtd.Grid(shape=(9.3e-6, 15.5e-6, 1), grid_spacing=77.5e-9)
 
-#grid[5.1e-6:5.6e-6, 5e-6:9e-6, 0] = fdtd.Object(permittivity=1.4, name="object")	# dielectric
-n0, x0, a, theta, t = 2, 0, 2, -30, 0.5											# GRIN-MTM
-for i in range(100):
-	x = i*0.04
-	epsilon = n0 - (((x - x0)**2 + a**2)**0.5 - a + (x - x0)*sin(radians(theta))) / (t)
+#grid[5.1e-6:5.6e-6, 5e-6:9e-6, 0] = fdtd.Object(permittivity=1.4, name="dielectric")	# dielectric
+#n0, x0, a, theta, t = 2, 0, 2, -30, 0.5												# GRIN-MTM
+#for i in range(100):
+	#x = i*0.04
+	#epsilon = n0 - (((x - x0)**2 + a**2)**0.5 - a + (x - x0)*sin(radians(theta))) / (t)
+	#epsilon = epsilon**0.5
 	#epsilon = 1+i*0.1
 	#print(epsilon)
-	grid[5.1e-6:5.6e-6, (5 + i*0.04)*1e-6:(5.04 + i*0.04)*1e-6, 0] = fdtd.Object(permittivity=epsilon, name="object"+str(i))
+	#grid[5.1e-6:5.6e-6, (5 + i*0.04)*1e-6:(5.04 + i*0.04)*1e-6, 0] = fdtd.Object(permittivity=epsilon, name="object"+str(i))
 
-#grid[20, 7.5e-6, 0] = fdtd.PointSource(period=1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
-grid[3.1e-6, 1.5e-6:14e-6, 0] = fdtd.LineSource(period = 1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
-#angleI = 30
+grid[3.1e-6, 5e-6, 0] = fdtd.PointSource(period=1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
+#grid[3.1e-6, 1.5e-6:14e-6, 0] = fdtd.LineSource(period = 1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
+#angleI = 40
 #grid[50:20, 50:50+round(30/tan(radians(angleI))), 0] = fdtd.LineSource(period = 1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
 
 #grid[12e-6, :, 0] = fdtd.LineDetector(name="detector")

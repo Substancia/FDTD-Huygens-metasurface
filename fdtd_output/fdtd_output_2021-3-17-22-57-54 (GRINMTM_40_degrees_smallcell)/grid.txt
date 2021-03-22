@@ -1,0 +1,235 @@
+Grid(shape=(120,200,1), grid_spacing=7.75e-08, courant_number=0.70)
+
+sources:
+    LineSource(period=29, power=1.0, phase_shift=0.0, name='source')
+        @ x=[50, ... , 20], y=[50, ... , 85], z=[0, ... , 0]
+
+detectors:
+    LineDetector(name='detector0')
+        @ x=[75, ... , 75], y=[84, ... , 87], z=[0, ... , 0]
+    LineDetector(name='detector1')
+        @ x=[75, ... , 75], y=[88, ... , 91], z=[0, ... , 0]
+    LineDetector(name='detector2')
+        @ x=[75, ... , 75], y=[92, ... , 95], z=[0, ... , 0]
+    LineDetector(name='detector3')
+        @ x=[75, ... , 75], y=[96, ... , 99], z=[0, ... , 0]
+    LineDetector(name='detector4')
+        @ x=[75, ... , 75], y=[100, ... , 103], z=[0, ... , 0]
+    LineDetector(name='detector5')
+        @ x=[75, ... , 75], y=[104, ... , 107], z=[0, ... , 0]
+    LineDetector(name='detector6')
+        @ x=[75, ... , 75], y=[108, ... , 111], z=[0, ... , 0]
+    LineDetector(name='detector7')
+        @ x=[75, ... , 75], y=[112, ... , 115], z=[0, ... , 0]
+
+boundaries:
+    PML(name='pml_xlow')
+        @ x=0:10, y=:, z=:
+    PML(name='pml_xhigh')
+        @ x=-10:, y=:, z=:
+    PML(name='pml_ylow')
+        @ x=:, y=0:10, z=:
+    PML(name='pml_yhigh')
+        @ x=:, y=-10:, z=:
+
+objects:
+    Object(name='object0')
+        @ x=66:72, y=65:65, z=0:1
+    Object(name='object1')
+        @ x=66:72, y=65:66, z=0:1
+    Object(name='object2')
+        @ x=66:72, y=66:66, z=0:1
+    Object(name='object3')
+        @ x=66:72, y=66:67, z=0:1
+    Object(name='object4')
+        @ x=66:72, y=67:67, z=0:1
+    Object(name='object5')
+        @ x=66:72, y=67:68, z=0:1
+    Object(name='object6')
+        @ x=66:72, y=68:68, z=0:1
+    Object(name='object7')
+        @ x=66:72, y=68:69, z=0:1
+    Object(name='object8')
+        @ x=66:72, y=69:69, z=0:1
+    Object(name='object9')
+        @ x=66:72, y=69:70, z=0:1
+    Object(name='object10')
+        @ x=66:72, y=70:70, z=0:1
+    Object(name='object11')
+        @ x=66:72, y=70:71, z=0:1
+    Object(name='object12')
+        @ x=66:72, y=71:71, z=0:1
+    Object(name='object13')
+        @ x=66:72, y=71:72, z=0:1
+    Object(name='object14')
+        @ x=66:72, y=72:72, z=0:1
+    Object(name='object15')
+        @ x=66:72, y=72:73, z=0:1
+    Object(name='object16')
+        @ x=66:72, y=73:73, z=0:1
+    Object(name='object17')
+        @ x=66:72, y=73:74, z=0:1
+    Object(name='object18')
+        @ x=66:72, y=74:74, z=0:1
+    Object(name='object19')
+        @ x=66:72, y=74:75, z=0:1
+    Object(name='object20')
+        @ x=66:72, y=75:75, z=0:1
+    Object(name='object21')
+        @ x=66:72, y=75:76, z=0:1
+    Object(name='object22')
+        @ x=66:72, y=76:76, z=0:1
+    Object(name='object23')
+        @ x=66:72, y=76:77, z=0:1
+    Object(name='object24')
+        @ x=66:72, y=77:77, z=0:1
+    Object(name='object25')
+        @ x=66:72, y=77:78, z=0:1
+    Object(name='object26')
+        @ x=66:72, y=78:78, z=0:1
+    Object(name='object27')
+        @ x=66:72, y=78:79, z=0:1
+    Object(name='object28')
+        @ x=66:72, y=79:79, z=0:1
+    Object(name='object29')
+        @ x=66:72, y=79:80, z=0:1
+    Object(name='object30')
+        @ x=66:72, y=80:81, z=0:1
+    Object(name='object31')
+        @ x=66:72, y=81:81, z=0:1
+    Object(name='object32')
+        @ x=66:72, y=81:82, z=0:1
+    Object(name='object33')
+        @ x=66:72, y=82:82, z=0:1
+    Object(name='object34')
+        @ x=66:72, y=82:83, z=0:1
+    Object(name='object35')
+        @ x=66:72, y=83:83, z=0:1
+    Object(name='object36')
+        @ x=66:72, y=83:84, z=0:1
+    Object(name='object37')
+        @ x=66:72, y=84:84, z=0:1
+    Object(name='object38')
+        @ x=66:72, y=84:85, z=0:1
+    Object(name='object39')
+        @ x=66:72, y=85:85, z=0:1
+    Object(name='object40')
+        @ x=66:72, y=85:86, z=0:1
+    Object(name='object41')
+        @ x=66:72, y=86:86, z=0:1
+    Object(name='object42')
+        @ x=66:72, y=86:87, z=0:1
+    Object(name='object43')
+        @ x=66:72, y=87:87, z=0:1
+    Object(name='object44')
+        @ x=66:72, y=87:88, z=0:1
+    Object(name='object45')
+        @ x=66:72, y=88:88, z=0:1
+    Object(name='object46')
+        @ x=66:72, y=88:89, z=0:1
+    Object(name='object47')
+        @ x=66:72, y=89:89, z=0:1
+    Object(name='object48')
+        @ x=66:72, y=89:90, z=0:1
+    Object(name='object49')
+        @ x=66:72, y=90:90, z=0:1
+    Object(name='object50')
+        @ x=66:72, y=90:91, z=0:1
+    Object(name='object51')
+        @ x=66:72, y=91:91, z=0:1
+    Object(name='object52')
+        @ x=66:72, y=91:92, z=0:1
+    Object(name='object53')
+        @ x=66:72, y=92:92, z=0:1
+    Object(name='object54')
+        @ x=66:72, y=92:93, z=0:1
+    Object(name='object55')
+        @ x=66:72, y=93:93, z=0:1
+    Object(name='object56')
+        @ x=66:72, y=93:94, z=0:1
+    Object(name='object57')
+        @ x=66:72, y=94:94, z=0:1
+    Object(name='object58')
+        @ x=66:72, y=94:95, z=0:1
+    Object(name='object59')
+        @ x=66:72, y=95:95, z=0:1
+    Object(name='object60')
+        @ x=66:72, y=95:96, z=0:1
+    Object(name='object61')
+        @ x=66:72, y=96:97, z=0:1
+    Object(name='object62')
+        @ x=66:72, y=97:97, z=0:1
+    Object(name='object63')
+        @ x=66:72, y=97:98, z=0:1
+    Object(name='object64')
+        @ x=66:72, y=98:98, z=0:1
+    Object(name='object65')
+        @ x=66:72, y=98:99, z=0:1
+    Object(name='object66')
+        @ x=66:72, y=99:99, z=0:1
+    Object(name='object67')
+        @ x=66:72, y=99:100, z=0:1
+    Object(name='object68')
+        @ x=66:72, y=100:100, z=0:1
+    Object(name='object69')
+        @ x=66:72, y=100:101, z=0:1
+    Object(name='object70')
+        @ x=66:72, y=101:101, z=0:1
+    Object(name='object71')
+        @ x=66:72, y=101:102, z=0:1
+    Object(name='object72')
+        @ x=66:72, y=102:102, z=0:1
+    Object(name='object73')
+        @ x=66:72, y=102:103, z=0:1
+    Object(name='object74')
+        @ x=66:72, y=103:103, z=0:1
+    Object(name='object75')
+        @ x=66:72, y=103:104, z=0:1
+    Object(name='object76')
+        @ x=66:72, y=104:104, z=0:1
+    Object(name='object77')
+        @ x=66:72, y=104:105, z=0:1
+    Object(name='object78')
+        @ x=66:72, y=105:105, z=0:1
+    Object(name='object79')
+        @ x=66:72, y=105:106, z=0:1
+    Object(name='object80')
+        @ x=66:72, y=106:106, z=0:1
+    Object(name='object81')
+        @ x=66:72, y=106:107, z=0:1
+    Object(name='object82')
+        @ x=66:72, y=107:107, z=0:1
+    Object(name='object83')
+        @ x=66:72, y=107:108, z=0:1
+    Object(name='object84')
+        @ x=66:72, y=108:108, z=0:1
+    Object(name='object85')
+        @ x=66:72, y=108:109, z=0:1
+    Object(name='object86')
+        @ x=66:72, y=109:109, z=0:1
+    Object(name='object87')
+        @ x=66:72, y=109:110, z=0:1
+    Object(name='object88')
+        @ x=66:72, y=110:110, z=0:1
+    Object(name='object89')
+        @ x=66:72, y=110:111, z=0:1
+    Object(name='object90')
+        @ x=66:72, y=111:111, z=0:1
+    Object(name='object91')
+        @ x=66:72, y=111:112, z=0:1
+    Object(name='object92')
+        @ x=66:72, y=112:113, z=0:1
+    Object(name='object93')
+        @ x=66:72, y=113:113, z=0:1
+    Object(name='object94')
+        @ x=66:72, y=113:114, z=0:1
+    Object(name='object95')
+        @ x=66:72, y=114:114, z=0:1
+    Object(name='object96')
+        @ x=66:72, y=114:115, z=0:1
+    Object(name='object97')
+        @ x=66:72, y=115:115, z=0:1
+    Object(name='object98')
+        @ x=66:72, y=115:116, z=0:1
+    Object(name='object99')
+        @ x=66:72, y=116:116, z=0:1
