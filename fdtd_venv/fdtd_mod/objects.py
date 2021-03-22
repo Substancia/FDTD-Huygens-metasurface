@@ -130,7 +130,7 @@ class Object:
         """
 
     def __repr__(self):
-        return f"{self.__class__.__name__}(name={repr(self.name)})"
+        return f"{self.__class__.__name__}(permittivity={repr(self.permittivity)}, name={repr(self.name)})"
 
     def __str__(self):
         s = "    " + repr(self) + "\n"
