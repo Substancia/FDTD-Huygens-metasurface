@@ -70,14 +70,12 @@ def plotDetection(File, detectorElement, specificPlot, angleParams):
 		show()
 
 # Printing angle (under construction)
-	if specificPlot is None:
-		specificPlot = "E2"
-	else:
+	if angleParams is not None:
 		specificPlot = specificPlot[0] + str(["x", "y", "z"].index(specificPlot[1]))
-	print(maxArray[specificPlot[0]][specificPlot[1]])
-	angle = degrees(arctan((maxArray[specificPlot[0]][specificPlot[1]][angleParams[1]][1] - maxArray[specificPlot[0]][specificPlot[1]][angleParams[0]][1]) / (((angleParams[1] + len(maxArray[specificPlot[0]][specificPlot[1]])) % len(maxArray[specificPlot[0]][specificPlot[1]]) - angleParams[0]) * angleParams[2])))
-	print("Angle (based on " + specificPlot[0]+["x", "y", "z"][int(specificPlot[1])] + "):", angle)
-	return angle
+		print(maxArray[specificPlot[0]][specificPlot[1]])
+		angle = degrees(arctan((maxArray[specificPlot[0]][specificPlot[1]][angleParams[1]][1] - maxArray[specificPlot[0]][specificPlot[1]][angleParams[0]][1]) / (((angleParams[1] + len(maxArray[specificPlot[0]][specificPlot[1]])) % len(maxArray[specificPlot[0]][specificPlot[1]]) - angleParams[0]) * angleParams[2])))
+		print("Angle (based on " + specificPlot[0]+["x", "y", "z"][int(specificPlot[1])] + "):", angle)
+		return angle
 
 
 if __name__ == "__main__":
@@ -88,5 +86,6 @@ if __name__ == "__main__":
 	if len(argv) > 4:
 		argv[4] = [int(x) for x in argv[4][1:-1].split(",")]
 	if len(argv) < 5:
-		argv.append([0, 2, 2])
+		#argv.append([0, 2, 2])
+		argv.append(None)
 	plotDetection(argv[1], argv[2], argv[3], argv[4])
