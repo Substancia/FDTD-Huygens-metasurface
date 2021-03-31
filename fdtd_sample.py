@@ -96,13 +96,11 @@ for i in range(120):
 	#grid.visualize(z=0, animate=True)
 	grid.visualize(z=0, animate=True, index=i, save=True, folder=folder)
 generate_video(delete_frames=True)
-#grid.run(total_time=120)
-#grid.visualize(z=0, index=i, save=True, folder=folder)
-save_data(grid.detectors)
 
-#grid.run(total_time=100)
-#grid.visualize(z=0, show=True)
+#grid.run(total_time=120)
+#grid.visualize(z=0, show=True, index=0, save=True, folder=folder)
 #print(grid.detectors[0].name, grid.detectors[0].detector_values()["E"][-1])
+save_data(grid.detectors)
 
 end_time = time()
 print("Runtime:", end_time-start_time)
