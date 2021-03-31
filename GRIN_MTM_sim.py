@@ -53,24 +53,30 @@ def save_data(detectors):
 
 grid = fdtd.Grid(shape=(9.3e-6, 15.5e-6, 1), grid_spacing=77.5e-9)
 
-#grid[5.1e-6:5.6e-6, 5e-6:9e-6, 0] = fdtd.Object(permittivity=1.4, name="dielectric")	# dielectric
-#n0, x0, a, theta, t = 2, 0, 2, -30, 0.5												# GRIN-MTM
-#for i in range(100):
-	#x = i*0.04
-	#epsilon = n0 - (((x - x0)**2 + a**2)**0.5 - a + (x - x0)*sin(radians(theta))) / (t)
+#n0, theta, t = 1, 30, 0.5
+#for i in range(50):
+	#x = i*0.08
+	#epsilon = n0 + x*sin(radians(theta))/t
 	#epsilon = epsilon**0.5
-	#epsilon = 1+i*0.1
-	#print(epsilon)
-	#grid[5.1e-6:5.6e-6, (5 + i*0.04)*1e-6:(5.04 + i*0.04)*1e-6, 0] = fdtd.Object(permittivity=epsilon, name="object"+str(i))
+	#grid[5.1e-6:5.6e-6, (5 + i*0.08)*1e-6:(5.08 + i*0.08)*1e-6, 0] = fdtd.Object(permittivity=epsilon, name="object"+str(i))
+#grid[5.1e-6:5.6e-6, 5e-6:9e-6, 0] = fdtd.Object(permittivity=1.4, name="dielectric")	# dielectric
+n0, a, theta, t = 10, 2, 30, 0.5												# GRIN-MTM
+for i in range(50):
+	x = i*0.08
+	epsilon = n0 - ((x**2 + a**2)**0.5 - a + x*sin(radians(theta))) / (t)
+	epsilon = epsilon**0.5
+	grid[5.1e-6:5.6e-6, (5 + i*0.08)*1e-6:(5.08 + i*0.08)*1e-6, 0] = fdtd.Object(permittivity=epsilon, name="object"+str(i))
+grid[5.1e-6:5.6e-6, 0.775e-6:5e-6, 0] = fdtd.Object(permittivity=n0**0.5, name="objectLeft")
+grid[5.1e-6:5.6e-6, 9e-6:(15.5 - 0.775)*1e-6, 0] = fdtd.Object(permittivity=epsilon, name="objectRight")
 
 grid[3.1e-6, 5e-6, 0] = fdtd.PointSource(period=1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
 #grid[3.1e-6, 1.5e-6:14e-6, 0] = fdtd.LineSource(period = 1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
-#angleI = 40
+#angleI = 30
 #grid[50:20, 50:50+round(30/tan(radians(angleI))), 0] = fdtd.LineSource(period = 1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
 
 #grid[12e-6, :, 0] = fdtd.LineDetector(name="detector")
-for i in range(8):
-	grid[5.8e-6, 84+4*i:88+4*i, 0] = fdtd.LineDetector(name="detector"+str(i))
+for i in range(-4, 8):
+	grid[5.8e-6, 84+4*i:86+4*i, 0] = fdtd.LineDetector(name="detector"+str(i))
 
 # x boundaries
 grid[0:10, :, :] = fdtd.PML(name="pml_xlow")
@@ -93,7 +99,7 @@ for i in range(120):
 generate_video(delete_frames=True)
 
 #grid.run(total_time=120)
-#grid.visualize(z=0, show=True, index=i, save=True, folder=folder)
+#grid.visualize(z=0, show=True, index=0, save=True, folder=folder)
 save_data(grid.detectors)
 
 end_time = time()
