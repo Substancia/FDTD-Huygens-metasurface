@@ -1,0 +1,147 @@
+Grid(shape=(480,800,1), grid_spacing=1.94e-08, courant_number=0.70)
+
+sources:
+    LineSource(period=114, power=1.0, phase_shift=0.0, name='source')
+        @ x=[160, ... , 160], y=[77, ... , 722], z=[0, ... , 0]
+
+detectors:
+    LineDetector(name='detector-4')
+        @ x=[392, ... , 392], y=[272, ... , 279], z=[0, ... , 0]
+    LineDetector(name='detector-3')
+        @ x=[392, ... , 392], y=[288, ... , 295], z=[0, ... , 0]
+    LineDetector(name='detector-2')
+        @ x=[392, ... , 392], y=[304, ... , 311], z=[0, ... , 0]
+    LineDetector(name='detector-1')
+        @ x=[392, ... , 392], y=[320, ... , 327], z=[0, ... , 0]
+    LineDetector(name='detector0')
+        @ x=[392, ... , 392], y=[336, ... , 343], z=[0, ... , 0]
+    LineDetector(name='detector1')
+        @ x=[392, ... , 392], y=[352, ... , 359], z=[0, ... , 0]
+    LineDetector(name='detector2')
+        @ x=[392, ... , 392], y=[368, ... , 375], z=[0, ... , 0]
+    LineDetector(name='detector3')
+        @ x=[392, ... , 392], y=[384, ... , 391], z=[0, ... , 0]
+    LineDetector(name='detector4')
+        @ x=[392, ... , 392], y=[400, ... , 407], z=[0, ... , 0]
+    LineDetector(name='detector5')
+        @ x=[392, ... , 392], y=[416, ... , 423], z=[0, ... , 0]
+    LineDetector(name='detector6')
+        @ x=[392, ... , 392], y=[432, ... , 439], z=[0, ... , 0]
+    LineDetector(name='detector7')
+        @ x=[392, ... , 392], y=[448, ... , 455], z=[0, ... , 0]
+
+boundaries:
+    PML(name='pml_xlow')
+        @ x=0:40, y=:, z=:
+    PML(name='pml_xhigh')
+        @ x=-40:, y=:, z=:
+    PML(name='pml_ylow')
+        @ x=:, y=0:40, z=:
+    PML(name='pml_yhigh')
+        @ x=:, y=-40:, z=:
+
+objects:
+    Object(permittivity=2.2007148271658505, name='object0')
+        @ x=263:289, y=258:262, z=0:1
+    Object(permittivity=2.2260117914395003, name='object1')
+        @ x=263:289, y=262:266, z=0:1
+    Object(permittivity=2.2504905952995737, name='object2')
+        @ x=263:289, y=266:270, z=0:1
+    Object(permittivity=2.2741450574422584, name='object3')
+        @ x=263:289, y=270:275, z=0:1
+    Object(permittivity=2.2969665061683764, name='object4')
+        @ x=263:289, y=275:279, z=0:1
+    Object(permittivity=2.318943856598025, name='object5')
+        @ x=263:289, y=279:283, z=0:1
+    Object(permittivity=2.3400636936215164, name='object6')
+        @ x=263:289, y=283:287, z=0:1
+    Object(permittivity=2.360310365981602, name='object7')
+        @ x=263:289, y=287:291, z=0:1
+    Object(permittivity=2.379666097059436, name='object8')
+        @ x=263:289, y=291:295, z=0:1
+    Object(permittivity=2.3981111180489814, name='object9')
+        @ x=263:289, y=295:299, z=0:1
+    Object(permittivity=2.415623829184453, name='object10')
+        @ x=263:289, y=299:303, z=0:1
+    Object(permittivity=2.4321809944561674, name='object11')
+        @ x=263:289, y=303:308, z=0:1
+    Object(permittivity=2.4477579747283595, name='object12')
+        @ x=263:289, y=308:312, z=0:1
+    Object(permittivity=2.4623290032739624, name='object13')
+        @ x=263:289, y=312:316, z=0:1
+    Object(permittivity=2.4758675063905877, name='object14')
+        @ x=263:289, y=316:320, z=0:1
+    Object(permittivity=2.4883464699057476, name='object15')
+        @ x=263:289, y=320:324, z=0:1
+    Object(permittivity=2.4997388500026045, name='object16')
+        @ x=263:289, y=324:328, z=0:1
+    Object(permittivity=2.5100180239412344, name='object17')
+        @ x=263:289, y=328:332, z=0:1
+    Object(permittivity=2.519158273027105, name='object18')
+        @ x=263:289, y=332:337, z=0:1
+    Object(permittivity=2.527135286782569, name='object19')
+        @ x=263:289, y=337:341, z=0:1
+    Object(permittivity=2.533926673983636, name='object20')
+        @ x=263:289, y=341:345, z=0:1
+    Object(permittivity=2.5395124633726267, name='object21')
+        @ x=263:289, y=345:349, z=0:1
+    Object(permittivity=2.5438755748179713, name='object22')
+        @ x=263:289, y=349:353, z=0:1
+    Object(permittivity=2.547002240816638, name='object23')
+        @ x=263:289, y=353:357, z=0:1
+    Object(permittivity=2.5488823587951295, name='object24')
+        @ x=263:289, y=357:361, z=0:1
+    Object(permittivity=2.5495097567963922, name='object25')
+        @ x=263:289, y=361:365, z=0:1
+    Object(permittivity=2.5488823587951295, name='object26')
+        @ x=263:289, y=365:370, z=0:1
+    Object(permittivity=2.547002240816638, name='object27')
+        @ x=263:289, y=370:374, z=0:1
+    Object(permittivity=2.5438755748179713, name='object28')
+        @ x=263:289, y=374:378, z=0:1
+    Object(permittivity=2.5395124633726267, name='object29')
+        @ x=263:289, y=378:382, z=0:1
+    Object(permittivity=2.533926673983636, name='object30')
+        @ x=263:289, y=382:386, z=0:1
+    Object(permittivity=2.527135286782569, name='object31')
+        @ x=263:289, y=386:390, z=0:1
+    Object(permittivity=2.519158273027105, name='object32')
+        @ x=263:289, y=390:394, z=0:1
+    Object(permittivity=2.5100180239412344, name='object33')
+        @ x=263:289, y=394:398, z=0:1
+    Object(permittivity=2.4997388500026045, name='object34')
+        @ x=263:289, y=398:403, z=0:1
+    Object(permittivity=2.4883464699057476, name='object35')
+        @ x=263:289, y=403:407, z=0:1
+    Object(permittivity=2.4758675063905877, name='object36')
+        @ x=263:289, y=407:411, z=0:1
+    Object(permittivity=2.4623290032739624, name='object37')
+        @ x=263:289, y=411:415, z=0:1
+    Object(permittivity=2.4477579747283595, name='object38')
+        @ x=263:289, y=415:419, z=0:1
+    Object(permittivity=2.4321809944561674, name='object39')
+        @ x=263:289, y=419:423, z=0:1
+    Object(permittivity=2.415623829184453, name='object40')
+        @ x=263:289, y=423:427, z=0:1
+    Object(permittivity=2.3981111180489814, name='object41')
+        @ x=263:289, y=427:431, z=0:1
+    Object(permittivity=2.379666097059436, name='object42')
+        @ x=263:289, y=431:436, z=0:1
+    Object(permittivity=2.360310365981602, name='object43')
+        @ x=263:289, y=436:440, z=0:1
+    Object(permittivity=2.3400636936215164, name='object44')
+        @ x=263:289, y=440:444, z=0:1
+    Object(permittivity=2.318943856598025, name='object45')
+        @ x=263:289, y=444:448, z=0:1
+    Object(permittivity=2.2969665061683764, name='object46')
+        @ x=263:289, y=448:452, z=0:1
+    Object(permittivity=2.274145057442258, name='object47')
+        @ x=263:289, y=452:456, z=0:1
+    Object(permittivity=2.250490595299574, name='object48')
+        @ x=263:289, y=456:460, z=0:1
+    Object(permittivity=2.2260117914395003, name='object49')
+        @ x=263:289, y=460:465, z=0:1
+    Object(permittivity=2.2260117914395003, name='objectLeft')
+        @ x=263:289, y=40:258, z=0:1
+    Object(permittivity=2.2260117914395003, name='objectRight')
+        @ x=263:289, y=465:760, z=0:1
