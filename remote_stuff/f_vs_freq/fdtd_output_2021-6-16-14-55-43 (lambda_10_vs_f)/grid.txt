@@ -1,0 +1,525 @@
+Grid(shape=(400,400,1), grid_spacing=3.87e-08, courant_number=0.70)
+
+sources:
+    LineSource(period=14, power=1.0, phase_shift=0.0, name='source')
+        @ x=[30, ... , 30], y=[100, ... , 299], z=[0, ... , 0]
+
+detectors:
+    BlockDetector(name='BlockDetector')
+        @ x=[100, ... , 380], y=[160, ... , 240], z=[0, ... , 0]
+
+boundaries:
+    PML(name='pml_xlow')
+        @ x=0:20, y=:, z=:
+    PML(name='pml_xhigh')
+        @ x=-20:, y=:, z=:
+    PML(name='pml_ylow')
+        @ x=:, y=0:20, z=:
+    PML(name='pml_yhigh')
+        @ x=:, y=-20:, z=:
+
+objects:
+    Object(permittivity=2.25, name='19,56')
+        @ x=59:61, y=76:77, z=0:1
+    Object(permittivity=2.25, name='19,57')
+        @ x=59:61, y=77:78, z=0:1
+    Object(permittivity=2.25, name='19,58')
+        @ x=59:61, y=78:79, z=0:1
+    Object(permittivity=2.25, name='18,59')
+        @ x=58:62, y=79:80, z=0:1
+    Object(permittivity=2.25, name='18,60')
+        @ x=58:62, y=80:81, z=0:1
+    Object(permittivity=2.25, name='18,61')
+        @ x=58:62, y=81:82, z=0:1
+    Object(permittivity=2.25, name='17,62')
+        @ x=57:63, y=82:83, z=0:1
+    Object(permittivity=2.25, name='17,63')
+        @ x=57:63, y=83:84, z=0:1
+    Object(permittivity=2.25, name='17,64')
+        @ x=57:63, y=84:85, z=0:1
+    Object(permittivity=2.25, name='16,65')
+        @ x=56:64, y=85:86, z=0:1
+    Object(permittivity=2.25, name='16,66')
+        @ x=56:64, y=86:87, z=0:1
+    Object(permittivity=2.25, name='16,67')
+        @ x=56:64, y=87:88, z=0:1
+    Object(permittivity=2.25, name='15,68')
+        @ x=55:65, y=88:89, z=0:1
+    Object(permittivity=2.25, name='15,69')
+        @ x=55:65, y=89:90, z=0:1
+    Object(permittivity=2.25, name='15,70')
+        @ x=55:65, y=90:91, z=0:1
+    Object(permittivity=2.25, name='15,71')
+        @ x=55:65, y=91:92, z=0:1
+    Object(permittivity=2.25, name='14,72')
+        @ x=54:66, y=92:93, z=0:1
+    Object(permittivity=2.25, name='14,73')
+        @ x=54:66, y=93:94, z=0:1
+    Object(permittivity=2.25, name='14,74')
+        @ x=54:66, y=94:95, z=0:1
+    Object(permittivity=2.25, name='14,75')
+        @ x=54:66, y=95:96, z=0:1
+    Object(permittivity=2.25, name='13,76')
+        @ x=53:67, y=96:97, z=0:1
+    Object(permittivity=2.25, name='13,77')
+        @ x=53:67, y=97:98, z=0:1
+    Object(permittivity=2.25, name='13,78')
+        @ x=53:67, y=98:99, z=0:1
+    Object(permittivity=2.25, name='12,79')
+        @ x=52:68, y=99:100, z=0:1
+    Object(permittivity=2.25, name='12,80')
+        @ x=52:68, y=100:101, z=0:1
+    Object(permittivity=2.25, name='12,81')
+        @ x=52:68, y=101:102, z=0:1
+    Object(permittivity=2.25, name='12,82')
+        @ x=52:68, y=102:103, z=0:1
+    Object(permittivity=2.25, name='11,83')
+        @ x=51:69, y=103:104, z=0:1
+    Object(permittivity=2.25, name='11,84')
+        @ x=51:69, y=104:105, z=0:1
+    Object(permittivity=2.25, name='11,85')
+        @ x=51:69, y=105:106, z=0:1
+    Object(permittivity=2.25, name='11,86')
+        @ x=51:69, y=106:107, z=0:1
+    Object(permittivity=2.25, name='10,87')
+        @ x=50:70, y=107:108, z=0:1
+    Object(permittivity=2.25, name='10,88')
+        @ x=50:70, y=108:109, z=0:1
+    Object(permittivity=2.25, name='10,89')
+        @ x=50:70, y=109:110, z=0:1
+    Object(permittivity=2.25, name='10,90')
+        @ x=50:70, y=110:111, z=0:1
+    Object(permittivity=2.25, name='10,91')
+        @ x=50:70, y=111:112, z=0:1
+    Object(permittivity=2.25, name='9,92')
+        @ x=49:71, y=112:113, z=0:1
+    Object(permittivity=2.25, name='9,93')
+        @ x=49:71, y=113:114, z=0:1
+    Object(permittivity=2.25, name='9,94')
+        @ x=49:71, y=114:115, z=0:1
+    Object(permittivity=2.25, name='9,95')
+        @ x=49:71, y=115:116, z=0:1
+    Object(permittivity=2.25, name='8,96')
+        @ x=48:72, y=116:117, z=0:1
+    Object(permittivity=2.25, name='8,97')
+        @ x=48:72, y=117:118, z=0:1
+    Object(permittivity=2.25, name='8,98')
+        @ x=48:72, y=118:119, z=0:1
+    Object(permittivity=2.25, name='8,99')
+        @ x=48:72, y=119:120, z=0:1
+    Object(permittivity=2.25, name='8,100')
+        @ x=48:72, y=120:121, z=0:1
+    Object(permittivity=2.25, name='7,101')
+        @ x=47:73, y=121:122, z=0:1
+    Object(permittivity=2.25, name='7,102')
+        @ x=47:73, y=122:123, z=0:1
+    Object(permittivity=2.25, name='7,103')
+        @ x=47:73, y=123:124, z=0:1
+    Object(permittivity=2.25, name='7,104')
+        @ x=47:73, y=124:125, z=0:1
+    Object(permittivity=2.25, name='7,105')
+        @ x=47:73, y=125:126, z=0:1
+    Object(permittivity=2.25, name='6,106')
+        @ x=46:74, y=126:127, z=0:1
+    Object(permittivity=2.25, name='6,107')
+        @ x=46:74, y=127:128, z=0:1
+    Object(permittivity=2.25, name='6,108')
+        @ x=46:74, y=128:129, z=0:1
+    Object(permittivity=2.25, name='6,109')
+        @ x=46:74, y=129:130, z=0:1
+    Object(permittivity=2.25, name='6,110')
+        @ x=46:74, y=130:131, z=0:1
+    Object(permittivity=2.25, name='5,111')
+        @ x=45:75, y=131:132, z=0:1
+    Object(permittivity=2.25, name='5,112')
+        @ x=45:75, y=132:133, z=0:1
+    Object(permittivity=2.25, name='5,113')
+        @ x=45:75, y=133:134, z=0:1
+    Object(permittivity=2.25, name='5,114')
+        @ x=45:75, y=134:135, z=0:1
+    Object(permittivity=2.25, name='5,115')
+        @ x=45:75, y=135:136, z=0:1
+    Object(permittivity=2.25, name='5,116')
+        @ x=45:75, y=136:137, z=0:1
+    Object(permittivity=2.25, name='4,117')
+        @ x=44:76, y=137:138, z=0:1
+    Object(permittivity=2.25, name='4,118')
+        @ x=44:76, y=138:139, z=0:1
+    Object(permittivity=2.25, name='4,119')
+        @ x=44:76, y=139:140, z=0:1
+    Object(permittivity=2.25, name='4,120')
+        @ x=44:76, y=140:141, z=0:1
+    Object(permittivity=2.25, name='4,121')
+        @ x=44:76, y=141:142, z=0:1
+    Object(permittivity=2.25, name='4,122')
+        @ x=44:76, y=142:143, z=0:1
+    Object(permittivity=2.25, name='4,123')
+        @ x=44:76, y=143:144, z=0:1
+    Object(permittivity=2.25, name='3,124')
+        @ x=43:77, y=144:145, z=0:1
+    Object(permittivity=2.25, name='3,125')
+        @ x=43:77, y=145:146, z=0:1
+    Object(permittivity=2.25, name='3,126')
+        @ x=43:77, y=146:147, z=0:1
+    Object(permittivity=2.25, name='3,127')
+        @ x=43:77, y=147:148, z=0:1
+    Object(permittivity=2.25, name='3,128')
+        @ x=43:77, y=148:149, z=0:1
+    Object(permittivity=2.25, name='3,129')
+        @ x=43:77, y=149:150, z=0:1
+    Object(permittivity=2.25, name='3,130')
+        @ x=43:77, y=150:151, z=0:1
+    Object(permittivity=2.25, name='3,131')
+        @ x=43:77, y=151:152, z=0:1
+    Object(permittivity=2.25, name='2,132')
+        @ x=42:78, y=152:153, z=0:1
+    Object(permittivity=2.25, name='2,133')
+        @ x=42:78, y=153:154, z=0:1
+    Object(permittivity=2.25, name='2,134')
+        @ x=42:78, y=154:155, z=0:1
+    Object(permittivity=2.25, name='2,135')
+        @ x=42:78, y=155:156, z=0:1
+    Object(permittivity=2.25, name='2,136')
+        @ x=42:78, y=156:157, z=0:1
+    Object(permittivity=2.25, name='2,137')
+        @ x=42:78, y=157:158, z=0:1
+    Object(permittivity=2.25, name='2,138')
+        @ x=42:78, y=158:159, z=0:1
+    Object(permittivity=2.25, name='2,139')
+        @ x=42:78, y=159:160, z=0:1
+    Object(permittivity=2.25, name='2,140')
+        @ x=42:78, y=160:161, z=0:1
+    Object(permittivity=2.25, name='1,141')
+        @ x=41:79, y=161:162, z=0:1
+    Object(permittivity=2.25, name='1,142')
+        @ x=41:79, y=162:163, z=0:1
+    Object(permittivity=2.25, name='1,143')
+        @ x=41:79, y=163:164, z=0:1
+    Object(permittivity=2.25, name='1,144')
+        @ x=41:79, y=164:165, z=0:1
+    Object(permittivity=2.25, name='1,145')
+        @ x=41:79, y=165:166, z=0:1
+    Object(permittivity=2.25, name='1,146')
+        @ x=41:79, y=166:167, z=0:1
+    Object(permittivity=2.25, name='1,147')
+        @ x=41:79, y=167:168, z=0:1
+    Object(permittivity=2.25, name='1,148')
+        @ x=41:79, y=168:169, z=0:1
+    Object(permittivity=2.25, name='1,149')
+        @ x=41:79, y=169:170, z=0:1
+    Object(permittivity=2.25, name='1,150')
+        @ x=41:79, y=170:171, z=0:1
+    Object(permittivity=2.25, name='1,151')
+        @ x=41:79, y=171:172, z=0:1
+    Object(permittivity=2.25, name='0,152')
+        @ x=40:80, y=172:173, z=0:1
+    Object(permittivity=2.25, name='0,153')
+        @ x=40:80, y=173:174, z=0:1
+    Object(permittivity=2.25, name='0,154')
+        @ x=40:80, y=174:175, z=0:1
+    Object(permittivity=2.25, name='0,155')
+        @ x=40:80, y=175:176, z=0:1
+    Object(permittivity=2.25, name='0,156')
+        @ x=40:80, y=176:177, z=0:1
+    Object(permittivity=2.25, name='0,157')
+        @ x=40:80, y=177:178, z=0:1
+    Object(permittivity=2.25, name='0,158')
+        @ x=40:80, y=178:179, z=0:1
+    Object(permittivity=2.25, name='0,159')
+        @ x=40:80, y=179:180, z=0:1
+    Object(permittivity=2.25, name='0,160')
+        @ x=40:80, y=180:181, z=0:1
+    Object(permittivity=2.25, name='0,161')
+        @ x=40:80, y=181:182, z=0:1
+    Object(permittivity=2.25, name='0,162')
+        @ x=40:80, y=182:183, z=0:1
+    Object(permittivity=2.25, name='0,163')
+        @ x=40:80, y=183:184, z=0:1
+    Object(permittivity=2.25, name='0,164')
+        @ x=40:80, y=184:185, z=0:1
+    Object(permittivity=2.25, name='0,165')
+        @ x=40:80, y=185:186, z=0:1
+    Object(permittivity=2.25, name='0,166')
+        @ x=40:80, y=186:187, z=0:1
+    Object(permittivity=2.25, name='0,167')
+        @ x=40:80, y=187:188, z=0:1
+    Object(permittivity=2.25, name='0,168')
+        @ x=40:80, y=188:189, z=0:1
+    Object(permittivity=2.25, name='0,169')
+        @ x=40:80, y=189:190, z=0:1
+    Object(permittivity=2.25, name='0,170')
+        @ x=40:80, y=190:191, z=0:1
+    Object(permittivity=2.25, name='0,171')
+        @ x=40:80, y=191:192, z=0:1
+    Object(permittivity=2.25, name='0,172')
+        @ x=40:80, y=192:193, z=0:1
+    Object(permittivity=2.25, name='0,173')
+        @ x=40:80, y=193:194, z=0:1
+    Object(permittivity=2.25, name='0,174')
+        @ x=40:80, y=194:195, z=0:1
+    Object(permittivity=2.25, name='0,175')
+        @ x=40:80, y=195:196, z=0:1
+    Object(permittivity=2.25, name='0,176')
+        @ x=40:80, y=196:197, z=0:1
+    Object(permittivity=2.25, name='0,177')
+        @ x=40:80, y=197:198, z=0:1
+    Object(permittivity=2.25, name='0,178')
+        @ x=40:80, y=198:199, z=0:1
+    Object(permittivity=2.25, name='0,179')
+        @ x=40:80, y=199:200, z=0:1
+    Object(permittivity=2.25, name='0,180')
+        @ x=40:80, y=200:201, z=0:1
+    Object(permittivity=2.25, name='0,181')
+        @ x=40:80, y=201:202, z=0:1
+    Object(permittivity=2.25, name='0,182')
+        @ x=40:80, y=202:203, z=0:1
+    Object(permittivity=2.25, name='0,183')
+        @ x=40:80, y=203:204, z=0:1
+    Object(permittivity=2.25, name='0,184')
+        @ x=40:80, y=204:205, z=0:1
+    Object(permittivity=2.25, name='0,185')
+        @ x=40:80, y=205:206, z=0:1
+    Object(permittivity=2.25, name='0,186')
+        @ x=40:80, y=206:207, z=0:1
+    Object(permittivity=2.25, name='0,187')
+        @ x=40:80, y=207:208, z=0:1
+    Object(permittivity=2.25, name='0,188')
+        @ x=40:80, y=208:209, z=0:1
+    Object(permittivity=2.25, name='0,189')
+        @ x=40:80, y=209:210, z=0:1
+    Object(permittivity=2.25, name='0,190')
+        @ x=40:80, y=210:211, z=0:1
+    Object(permittivity=2.25, name='0,191')
+        @ x=40:80, y=211:212, z=0:1
+    Object(permittivity=2.25, name='0,192')
+        @ x=40:80, y=212:213, z=0:1
+    Object(permittivity=2.25, name='0,193')
+        @ x=40:80, y=213:214, z=0:1
+    Object(permittivity=2.25, name='0,194')
+        @ x=40:80, y=214:215, z=0:1
+    Object(permittivity=2.25, name='0,195')
+        @ x=40:80, y=215:216, z=0:1
+    Object(permittivity=2.25, name='0,196')
+        @ x=40:80, y=216:217, z=0:1
+    Object(permittivity=2.25, name='0,197')
+        @ x=40:80, y=217:218, z=0:1
+    Object(permittivity=2.25, name='0,198')
+        @ x=40:80, y=218:219, z=0:1
+    Object(permittivity=2.25, name='0,199')
+        @ x=40:80, y=219:220, z=0:1
+    Object(permittivity=2.25, name='0,200')
+        @ x=40:80, y=220:221, z=0:1
+    Object(permittivity=2.25, name='0,201')
+        @ x=40:80, y=221:222, z=0:1
+    Object(permittivity=2.25, name='0,202')
+        @ x=40:80, y=222:223, z=0:1
+    Object(permittivity=2.25, name='0,203')
+        @ x=40:80, y=223:224, z=0:1
+    Object(permittivity=2.25, name='0,204')
+        @ x=40:80, y=224:225, z=0:1
+    Object(permittivity=2.25, name='0,205')
+        @ x=40:80, y=225:226, z=0:1
+    Object(permittivity=2.25, name='0,206')
+        @ x=40:80, y=226:227, z=0:1
+    Object(permittivity=2.25, name='0,207')
+        @ x=40:80, y=227:228, z=0:1
+    Object(permittivity=2.25, name='0,208')
+        @ x=40:80, y=228:229, z=0:1
+    Object(permittivity=2.25, name='1,209')
+        @ x=41:79, y=229:230, z=0:1
+    Object(permittivity=2.25, name='1,210')
+        @ x=41:79, y=230:231, z=0:1
+    Object(permittivity=2.25, name='1,211')
+        @ x=41:79, y=231:232, z=0:1
+    Object(permittivity=2.25, name='1,212')
+        @ x=41:79, y=232:233, z=0:1
+    Object(permittivity=2.25, name='1,213')
+        @ x=41:79, y=233:234, z=0:1
+    Object(permittivity=2.25, name='1,214')
+        @ x=41:79, y=234:235, z=0:1
+    Object(permittivity=2.25, name='1,215')
+        @ x=41:79, y=235:236, z=0:1
+    Object(permittivity=2.25, name='1,216')
+        @ x=41:79, y=236:237, z=0:1
+    Object(permittivity=2.25, name='1,217')
+        @ x=41:79, y=237:238, z=0:1
+    Object(permittivity=2.25, name='1,218')
+        @ x=41:79, y=238:239, z=0:1
+    Object(permittivity=2.25, name='1,219')
+        @ x=41:79, y=239:240, z=0:1
+    Object(permittivity=2.25, name='2,220')
+        @ x=42:78, y=240:241, z=0:1
+    Object(permittivity=2.25, name='2,221')
+        @ x=42:78, y=241:242, z=0:1
+    Object(permittivity=2.25, name='2,222')
+        @ x=42:78, y=242:243, z=0:1
+    Object(permittivity=2.25, name='2,223')
+        @ x=42:78, y=243:244, z=0:1
+    Object(permittivity=2.25, name='2,224')
+        @ x=42:78, y=244:245, z=0:1
+    Object(permittivity=2.25, name='2,225')
+        @ x=42:78, y=245:246, z=0:1
+    Object(permittivity=2.25, name='2,226')
+        @ x=42:78, y=246:247, z=0:1
+    Object(permittivity=2.25, name='2,227')
+        @ x=42:78, y=247:248, z=0:1
+    Object(permittivity=2.25, name='2,228')
+        @ x=42:78, y=248:249, z=0:1
+    Object(permittivity=2.25, name='3,229')
+        @ x=43:77, y=249:250, z=0:1
+    Object(permittivity=2.25, name='3,230')
+        @ x=43:77, y=250:251, z=0:1
+    Object(permittivity=2.25, name='3,231')
+        @ x=43:77, y=251:252, z=0:1
+    Object(permittivity=2.25, name='3,232')
+        @ x=43:77, y=252:253, z=0:1
+    Object(permittivity=2.25, name='3,233')
+        @ x=43:77, y=253:254, z=0:1
+    Object(permittivity=2.25, name='3,234')
+        @ x=43:77, y=254:255, z=0:1
+    Object(permittivity=2.25, name='3,235')
+        @ x=43:77, y=255:256, z=0:1
+    Object(permittivity=2.25, name='3,236')
+        @ x=43:77, y=256:257, z=0:1
+    Object(permittivity=2.25, name='4,237')
+        @ x=44:76, y=257:258, z=0:1
+    Object(permittivity=2.25, name='4,238')
+        @ x=44:76, y=258:259, z=0:1
+    Object(permittivity=2.25, name='4,239')
+        @ x=44:76, y=259:260, z=0:1
+    Object(permittivity=2.25, name='4,240')
+        @ x=44:76, y=260:261, z=0:1
+    Object(permittivity=2.25, name='4,241')
+        @ x=44:76, y=261:262, z=0:1
+    Object(permittivity=2.25, name='4,242')
+        @ x=44:76, y=262:263, z=0:1
+    Object(permittivity=2.25, name='4,243')
+        @ x=44:76, y=263:264, z=0:1
+    Object(permittivity=2.25, name='5,244')
+        @ x=45:75, y=264:265, z=0:1
+    Object(permittivity=2.25, name='5,245')
+        @ x=45:75, y=265:266, z=0:1
+    Object(permittivity=2.25, name='5,246')
+        @ x=45:75, y=266:267, z=0:1
+    Object(permittivity=2.25, name='5,247')
+        @ x=45:75, y=267:268, z=0:1
+    Object(permittivity=2.25, name='5,248')
+        @ x=45:75, y=268:269, z=0:1
+    Object(permittivity=2.25, name='5,249')
+        @ x=45:75, y=269:270, z=0:1
+    Object(permittivity=2.25, name='6,250')
+        @ x=46:74, y=270:271, z=0:1
+    Object(permittivity=2.25, name='6,251')
+        @ x=46:74, y=271:272, z=0:1
+    Object(permittivity=2.25, name='6,252')
+        @ x=46:74, y=272:273, z=0:1
+    Object(permittivity=2.25, name='6,253')
+        @ x=46:74, y=273:274, z=0:1
+    Object(permittivity=2.25, name='6,254')
+        @ x=46:74, y=274:275, z=0:1
+    Object(permittivity=2.25, name='7,255')
+        @ x=47:73, y=275:276, z=0:1
+    Object(permittivity=2.25, name='7,256')
+        @ x=47:73, y=276:277, z=0:1
+    Object(permittivity=2.25, name='7,257')
+        @ x=47:73, y=277:278, z=0:1
+    Object(permittivity=2.25, name='7,258')
+        @ x=47:73, y=278:279, z=0:1
+    Object(permittivity=2.25, name='7,259')
+        @ x=47:73, y=279:280, z=0:1
+    Object(permittivity=2.25, name='8,260')
+        @ x=48:72, y=280:281, z=0:1
+    Object(permittivity=2.25, name='8,261')
+        @ x=48:72, y=281:282, z=0:1
+    Object(permittivity=2.25, name='8,262')
+        @ x=48:72, y=282:283, z=0:1
+    Object(permittivity=2.25, name='8,263')
+        @ x=48:72, y=283:284, z=0:1
+    Object(permittivity=2.25, name='8,264')
+        @ x=48:72, y=284:285, z=0:1
+    Object(permittivity=2.25, name='9,265')
+        @ x=49:71, y=285:286, z=0:1
+    Object(permittivity=2.25, name='9,266')
+        @ x=49:71, y=286:287, z=0:1
+    Object(permittivity=2.25, name='9,267')
+        @ x=49:71, y=287:288, z=0:1
+    Object(permittivity=2.25, name='9,268')
+        @ x=49:71, y=288:289, z=0:1
+    Object(permittivity=2.25, name='10,269')
+        @ x=50:70, y=289:290, z=0:1
+    Object(permittivity=2.25, name='10,270')
+        @ x=50:70, y=290:291, z=0:1
+    Object(permittivity=2.25, name='10,271')
+        @ x=50:70, y=291:292, z=0:1
+    Object(permittivity=2.25, name='10,272')
+        @ x=50:70, y=292:293, z=0:1
+    Object(permittivity=2.25, name='10,273')
+        @ x=50:70, y=293:294, z=0:1
+    Object(permittivity=2.25, name='11,274')
+        @ x=51:69, y=294:295, z=0:1
+    Object(permittivity=2.25, name='11,275')
+        @ x=51:69, y=295:296, z=0:1
+    Object(permittivity=2.25, name='11,276')
+        @ x=51:69, y=296:297, z=0:1
+    Object(permittivity=2.25, name='11,277')
+        @ x=51:69, y=297:298, z=0:1
+    Object(permittivity=2.25, name='12,278')
+        @ x=52:68, y=298:299, z=0:1
+    Object(permittivity=2.25, name='12,279')
+        @ x=52:68, y=299:300, z=0:1
+    Object(permittivity=2.25, name='12,280')
+        @ x=52:68, y=300:301, z=0:1
+    Object(permittivity=2.25, name='12,281')
+        @ x=52:68, y=301:302, z=0:1
+    Object(permittivity=2.25, name='13,282')
+        @ x=53:67, y=302:303, z=0:1
+    Object(permittivity=2.25, name='13,283')
+        @ x=53:67, y=303:304, z=0:1
+    Object(permittivity=2.25, name='13,284')
+        @ x=53:67, y=304:305, z=0:1
+    Object(permittivity=2.25, name='14,285')
+        @ x=54:66, y=305:306, z=0:1
+    Object(permittivity=2.25, name='14,286')
+        @ x=54:66, y=306:307, z=0:1
+    Object(permittivity=2.25, name='14,287')
+        @ x=54:66, y=307:308, z=0:1
+    Object(permittivity=2.25, name='14,288')
+        @ x=54:66, y=308:309, z=0:1
+    Object(permittivity=2.25, name='15,289')
+        @ x=55:65, y=309:310, z=0:1
+    Object(permittivity=2.25, name='15,290')
+        @ x=55:65, y=310:311, z=0:1
+    Object(permittivity=2.25, name='15,291')
+        @ x=55:65, y=311:312, z=0:1
+    Object(permittivity=2.25, name='15,292')
+        @ x=55:65, y=312:313, z=0:1
+    Object(permittivity=2.25, name='16,293')
+        @ x=56:64, y=313:314, z=0:1
+    Object(permittivity=2.25, name='16,294')
+        @ x=56:64, y=314:315, z=0:1
+    Object(permittivity=2.25, name='16,295')
+        @ x=56:64, y=315:316, z=0:1
+    Object(permittivity=2.25, name='17,296')
+        @ x=57:63, y=316:317, z=0:1
+    Object(permittivity=2.25, name='17,297')
+        @ x=57:63, y=317:318, z=0:1
+    Object(permittivity=2.25, name='17,298')
+        @ x=57:63, y=318:319, z=0:1
+    Object(permittivity=2.25, name='18,299')
+        @ x=58:62, y=319:320, z=0:1
+    Object(permittivity=2.25, name='18,300')
+        @ x=58:62, y=320:321, z=0:1
+    Object(permittivity=2.25, name='18,301')
+        @ x=58:62, y=321:322, z=0:1
+    Object(permittivity=2.25, name='19,302')
+        @ x=59:61, y=322:323, z=0:1
+    Object(permittivity=2.25, name='19,303')
+        @ x=59:61, y=323:324, z=0:1
+    Object(permittivity=2.25, name='19,304')
+        @ x=59:61, y=324:325, z=0:1
+
+
+Grid details (in wavelength scale):
+	Grid dimensions: [40.  40.   0.1]
+	Source dimensions: [ 0.1 20.   0.1]
+	Object dimensions: [4.0, 24.9, 0.1]
