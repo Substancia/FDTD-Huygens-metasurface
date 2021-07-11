@@ -1,82 +1,51 @@
 # import only necessary functions from modules to reduce load
 from fdtd_venv import fdtd_mod as fdtd
-from numpy import sin, radians, tan
-from os import path, mkdir, chdir, remove
-from subprocess import call
-from glob import glob
-from datetime import datetime
-from pandas import DataFrame
+from numpy import sin, radians, tan, meshgrid, arange, flip, array
+from os import path
+#from os import path, mkdir, chdir, remove
+#from subprocess import call
+#from glob import glob
+#from datetime import datetime
+#from pandas import DataFrame
 from sys import argv
-from matplotlib.pyplot import figure
+#from matplotlib.pyplot import figure
 from time import time
 
 start_time = time()
 
-#if not path.exists("./fdtd_output"):  # Output folder declaration
-	#mkdir("fdtd_output")
-#simTitle = str(datetime.now().year) + "-" + str(
-	#datetime.now().month) + "-" + str(datetime.now().day) + "-" + str(
-		#datetime.now().hour) + "-" + str(datetime.now().minute) + "-" + str(datetime.now().second)
-#if len(argv) > 1:  # Simulation name (optional)
-	#simTitle = simTitle + " (" + argv[1] + ")"
-#folder = "fdtd_output_" + simTitle
-#if path.exists(path.join("./fdtd_output", folder)):  # Overwrite protocol
-	#yn = input("File", folder, "exists. Overwrite? [Y/N]: ")
-	#if yn.capitalize() == "N":
-		#exit()
-#else:
-	#mkdir(path.join("./fdtd_output", folder))
+animate = True
+run_time = 400
+saveStuff = True
+results = False
 
+# grid
+grid = fdtd.Grid(shape=(260, 15.5e-6, 1), grid_spacing=77.5e-9)
+if saveStuff:
+	grid.save_simulation(argv[1] if len(argv) > 1 else None)
 
-# Generate video
-def generate_video(delete_frames=False):
-	chdir(path.join("./fdtd_output", folder))
-	call([
-		'ffmpeg', '-y', '-framerate', '8', '-i', 'file%02d.png', '-r', '30',
-		'-pix_fmt', 'yuv420p', 'fdtd_sim_video_' + simTitle + '.mp4'
-	])
-	if delete_frames:  # delete frames
-		for file_name in glob("*.png"):
-			remove(file_name)
-	chdir("../..")
+# objects
+lens_width = 20		# in terms of biconvex
+lens_order = 1
+lens_radius = 200
+x, y = arange(-90, 90, 1), arange(lens_radius-lens_order*lens_width/2, lens_radius, 1)
+X, Y = meshgrid(x, y)
+lens_mask = X**2 + Y**2 <= lens_radius**2
+for j, col in enumerate(lens_mask.T):
+	for i, val in enumerate(flip(col)):
+		if val:
+			# biconvex
+			#grid[50-(lens_width//2)+i%(lens_width//2):50+(lens_width//2)-i%(lens_width//2), j+10:j+11, 0] = fdtd.Object(permittivity=1.5**2, name=str(i)+","+str(j))
+			# planoconvex
+			grid[50-(lens_width//2)+i%(lens_width//2):50, j+10:j+11, 0] = fdtd.Object(permittivity=1.5**2, name=str(i)+","+str(j))
+			break
 
+# source
+grid[15, 50:150, 0] = fdtd.LineSource(period = 1550e-9 / (3e8), name="source")
 
-# Save detector readings
-def save_data(detectors):
-	dic = {}
-	for detector in detectors:
-		dic[detector.name + " (E)"] = [x for x in detector.detector_values()["E"]]
-		dic[detector.name + " (H)"] = [x for x in detector.detector_values()["H"]]
-	df = DataFrame(dic)
-	df.to_csv(path.join("./fdtd_output", folder, "detector_readings.csv"), index=None)
-
-
-grid = fdtd.Grid(shape=(9.3e-6, 15.5e-6, 1), grid_spacing=77.5e-9)
-
-#n0, theta, t = 1, 30, 0.5
-#for i in range(50):
-	#x = i*0.08
-	#epsilon = n0 + x*sin(radians(theta))/t
-	#epsilon = epsilon**0.5
-	#grid[5.1e-6:5.6e-6, (5 + i*0.08)*1e-6:(5.08 + i*0.08)*1e-6, 0] = fdtd.Object(permittivity=epsilon, name="object"+str(i))
-#grid[5.1e-6:5.6e-6, 5e-6:9e-6, 0] = fdtd.Object(permittivity=1.4, name="dielectric")	# dielectric
-n0, a, theta, t = 10, 2, 30, 0.5												# GRIN-MTM
-for i in range(50):
-	x = i*0.08
-	epsilon = n0 - ((x**2 + a**2)**0.5 - a + x*sin(radians(theta))) / (t)
-	epsilon = epsilon**0.5
-	grid[5.1e-6:5.6e-6, (5 + i*0.08)*1e-6:(5.08 + i*0.08)*1e-6, 0] = fdtd.Object(permittivity=epsilon, name="object"+str(i))
-grid[5.1e-6:5.6e-6, 0.775e-6:5e-6, 0] = fdtd.Object(permittivity=n0**0.5, name="objectLeft")
-grid[5.1e-6:5.6e-6, 9e-6:(15.5 - 0.775)*1e-6, 0] = fdtd.Object(permittivity=epsilon, name="objectRight")
-
-grid[3.1e-6, 5e-6, 0] = fdtd.PointSource(period=1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
-#grid[3.1e-6, 1.5e-6:14e-6, 0] = fdtd.LineSource(period = 1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
-#angleI = 30
-#grid[50:20, 50:50+round(30/tan(radians(angleI))), 0] = fdtd.LineSource(period = 1550e-9 / (3e8), name="source", pulse=True, cycle=3, dt=4e-15)
-
-#grid[12e-6, :, 0] = fdtd.LineDetector(name="detector")
-for i in range(-4, 8):
-	grid[5.8e-6, 84+4*i:86+4*i, 0] = fdtd.LineDetector(name="detector"+str(i))
+# detectors
+grid[80:200, 80:120, 0] = fdtd.BlockDetector(name="BlockDetector")
+grid[80:200, 100, 0] = fdtd.LineDetector(name="LineDetectorVert")
+#grid[450, 60:140, 0] = fdtd.LineDetector(name="LineDetectorHor")
 
 # x boundaries
 grid[0:10, :, :] = fdtd.PML(name="pml_xlow")
@@ -87,21 +56,56 @@ grid[:, 0:10, :] = fdtd.PML(name="pml_ylow")
 grid[:, -10:, :] = fdtd.PML(name="pml_yhigh")
 
 # Saving grid geometry
-#f = open(path.join("./fdtd_output", folder, "grid.txt"), "w")
-#f.write(str(grid))
-#f.close()
+if saveStuff:
+	with open(path.join("./fdtd_output", grid.folder, "grid.txt"), "w") as f:
+		f.write(str(grid))
+		wavelength = 3e8/grid.source.frequency
+		wavelengthUnits = wavelength/grid.grid_spacing
+		GD = array([grid.x, grid.y, grid.z])
+		gridRange = [arange(x/grid.grid_spacing) for x in GD]
+		objectRange = array([[gridRange[0][x.x], gridRange[1][x.y], gridRange[2][x.z]] for x in grid.objects]).T
+		f.write("\n\nGrid details (in wavelength scale):")
+		f.write("\n\tGrid dimensions: ")
+		f.write(str(GD/wavelength))
+		f.write("\n\tSource dimensions: ")
+		f.write(str(array([grid.source.x[-1] - grid.source.x[0] + 1, grid.source.y[-1] - grid.source.y[0] + 1, grid.source.z[-1] - grid.source.z[0] + 1])/wavelengthUnits))
+		f.write("\n\tObject dimensions: ")
+		f.write(str([(max(map(max, x)) - min(map(min, x)) + 1)/wavelengthUnits for x in objectRange]))
 
-#figure(figsize=(15, 15))
-for i in range(120):
-	grid.run(total_time=1)
-	grid.visualize(z=0, animate=True)
-	#grid.visualize(z=0, animate=True, index=i, save=True, folder=folder)
-#generate_video(delete_frames=True)
+#for i in range(400):
+	#grid.run(total_time=1)
+	#grid.visualize(z=0, animate=True)
+	#grid.visualize(z=0, animate=True, index=i, save=True, folder=grid.folder)
+#grid.generate_video(delete_frames=True)
+#grid.save_data()
 
-#grid.run(total_time=120)
-#grid.visualize(z=0, show=True, index=0, save=True, folder=folder)
-save_data(grid.detectors)
+if animate:
+	if run_time > 0:
+		for i in range(run_time):
+			grid.run(total_time=1)
+			if saveStuff:
+				grid.visualize(z=0, animate=True, index=i, save=True, folder=grid.folder)
+			else:
+				grid.visualize(z=0, animate=True)
+	if saveStuff:
+		grid.generate_video(delete_frames=True)
+		grid.save_data()
+else:
+	if run_time > 0:
+		grid.run(total_time=run_time)
+	if saveStuff:
+		grid.visualize(z=0, show=True, index=0, save=True, folder=grid.folder)
+		grid.save_data()
+	else:
+		grid.visualize(z=0, show=True)
+
+if results:
+	print("full time average:-")
+	fdtd.dB_map_2D(array(grid.detectors[0].detector_values()['E']))
+	print("-200: timestep average:-")
+	fdtd.dB_map_2D(array(grid.detectors[0].detector_values()['E'][-200:]))
+	print("-100: timestep average:-")
+	fdtd.dB_map_2D(array(grid.detectors[0].detector_values()['E'][-100:]))
 
 end_time = time()
 print("Runtime:", end_time-start_time)
- 

@@ -40,7 +40,7 @@ for i in range(120):
 
 # source
 #grid[44, 4e-6:12e-6, 0] = fdtd.LineSource(period=1550e-9 / (3e8), name="source")
-grid[40:160, 320, 0] = fdtd.LineSource(period=1550e-9 / (3e8), name="source")
+grid[40:160, 100, 0] = fdtd.LineSource(period=1550e-9 / (3e8), name="source")
 
 # detector
 for i in range(6):
